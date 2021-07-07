@@ -1,18 +1,91 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// // Route::get($uri, $callback);
+// // Route::post($uri, $callback);
+// // Route::put($uri, $callback);
+// // Route::delete($uri, $callback);
+
+
+// Route::match(['get', 'post'], '/anything', function () {
+// });
+
+
+// // Route::any('/any', function () {
+// //     return 'any';
+// // });
+
+// Route::redirect('/here', '/redirect');
+
+
+// Route::get('/redirect', function () {
+//     return 'redirected';
+// });
+
+// Route::view('view', 'welcome');
+
+
+// Route::get('params/{id}', function ($id) {
+//     return $id;
+// })->where('id', '[0-9]+');
+
+
+// Route::get('name', function () {
+//     return 'name';
+// })->name('name');
+
+
+// Route::get('category/create', function () {
+//     return 'name';
+// })->name('cat.name');
+
+
+// Route::get('category/edit', function () {
+//     return 'name';
+// })->name('cat.edit');
+
+
+
+// // route group
+
+
+// Route::prefix('admin')->name('admin.')->middleware('nameCheck')->group(function () {
+//     Route::get('/edit', function () {
+//         return 'name';
+//     });
+//     Route::get('/edit', function () {
+//         return 'name';
+//     })->name('create');
+//     Route::get('/edit', function () {
+//         return 'name';
+//     })->name('edit');
+
+//     Route::get('/edit', function () {
+//         return 'name';
+//     })->name('add');
+// });
+
+
+
+// Route::fallback(function () {
+//     return view('error');
+// });
+
+
+// Controller
+
+Route::get('/', [TestController::class, 'index'])->name('controller');
+
+Route::get('/params/{id}', [TestController::class, 'params'])->name('controller');
+
+
+Route::resource('category', CategoryController::class);
