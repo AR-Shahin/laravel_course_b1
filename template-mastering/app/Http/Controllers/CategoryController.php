@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -15,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest()->get();
+        $categories = Category::latest()->paginate(5);
         return view()->exists('Category.index') ? view('Category.index', compact('categories')) : abort(404);
     }
 
@@ -35,18 +37,29 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        // $category = new Category();
-        // $category->name = $request->name;
-        // $category->slug = $request->name;
-        // $category->save();
+        // $this->validate($request, [
+        //     'name' => ['required', 'unique:categories,name'],
+        //     'image' => ['required', 'mimes:jpg,png'],
+        // ]);
+
+
+        $file = $request->file('image');
+
+        $fileName = time() . '_' . uniqid() . '.' . $file->extension();
+        Storage::putFileAs("public/category", $file, $fileName);
+
+        $path =  "storage/category/" . $fileName;
+
         $data = [
             'name' => $request->name,
-            'slug' => $request->name
+            'slug' => $request->name,
+            'image' => $path
         ];
         $cat =  Category::create($data);
         if ($cat) {
+            $this->setNotificationMessage();
             return redirect()->route('category.index');
         } else {
             return back();
@@ -73,6 +86,8 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         //
+        session()->flash('message', 'Data save!');
+        session()->flash('type', 'success');
     }
 
     /**
@@ -82,7 +97,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         //
     }

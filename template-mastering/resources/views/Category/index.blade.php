@@ -2,7 +2,9 @@
 
 @section('title') Category @stop
 
-
+@push('css')
+<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+@endpush
 @section('master_content')
 
 <div class="card">
@@ -28,7 +30,7 @@
                             {{ $category->name }}
                         </td>
                         <td>
-                            d
+                            <img src="{{ $category->image }}" alt="" width="100px">
                         </td>
                         <td>
                             <a href="" class="btn btn-primary btn-sm">Edit</a>
@@ -38,10 +40,9 @@
 
                     </tr>
                 @endforeach
-
-
             </tbody>
         </table>
+        {{ $categories->links() }}
     </div>
 </div>
 @stop
