@@ -26,6 +26,7 @@ class ProductFactory extends Factory
             'slug' => $this->faker->sentence(10),
             'quantity' => rand(2, 80),
             'view' => rand(2, 80),
+            'status' => rand(0, 1),
             'description' => $this->faker->text(150),
         ];
     }
