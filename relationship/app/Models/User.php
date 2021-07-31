@@ -40,6 +40,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d',
     ];
 
 
@@ -49,5 +50,22 @@ class User extends Authenticatable
             'phone' => 125369,
             'post_code' => 'UCS'
         ]);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function latestPost()
+    {
+        return $this->hasOne(Post::class)->ofMany('view', 'max');
+        //return $this->hasOne(Post::class)->latestOfMany();
+    }
+
+    public function oldestPost()
+    {
+        return $this->hasOne(Post::class)->ofMany('view', 'min');
+        return $this->hasOne(Post::class)->oldestOfMany();
     }
 }
