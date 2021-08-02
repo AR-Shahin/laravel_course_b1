@@ -21,7 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-
+   
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -39,5 +39,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d',
     ];
 }

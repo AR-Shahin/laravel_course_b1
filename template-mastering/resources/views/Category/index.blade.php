@@ -33,9 +33,15 @@
                             <img src="{{ $category->image }}" alt="" width="100px">
                         </td>
                         <td>
-                            <a href="" class="btn btn-primary btn-sm">Edit</a>
-                            <a href="" class="btn btn-success btn-sm">View</a>
-                            <a href="" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{{ route('category.edit',$category->slug) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{{ route('category.show',$category->slug) }}" class="btn btn-success btn-sm">View</a>
+
+                            <form  class="d-inline" action="{{ route('category.destroy',$category->slug) }}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+
                         </td>
 
                     </tr>

@@ -74,7 +74,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        // $category = Category::find($category);
+        return view('Category.show', compact('category'));
     }
 
     /**
@@ -85,9 +86,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
-        session()->flash('message', 'Data save!');
-        session()->flash('type', 'success');
+
+        return view('Category.edit', compact('category'));
     }
 
     /**
@@ -99,7 +99,32 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $OldImgPath = $category->image;
+
+        if ($request->has('image')) {
+            $file = $request->file('image');
+
+            $fileName = time() . '_' . uniqid() . '.' . $file->extension();
+            Storage::putFileAs("public/category", $file, $fileName);
+
+            $path =  "storage/category/" . $fileName;
+            $category->update([
+                'name' => $request->name,
+                'slug' => $request->name,
+                'image' => $path
+            ]);
+
+            if (file_exists($OldImgPath)) {
+                unlink($OldImgPath);
+            }
+        } else {
+            $category->update([
+                'name' => $request->name,
+                'slug' => $request->name
+            ]);
+        }
+        $this->setNotificationMessage('Data Updated Successfully');
+        return redirect()->route('category.index');
     }
 
     /**
@@ -110,6 +135,14 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+
+        $imgPath = $category->image;
+        if (file_exists($category->image)) {
+            unlink($category->image);
+        }
+        $category->delete();
+
+        $this->setNotificationMessage('Data has been deleted!');
+        return back();
     }
 }

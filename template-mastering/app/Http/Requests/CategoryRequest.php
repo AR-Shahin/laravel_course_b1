@@ -38,10 +38,17 @@ class CategoryRequest extends FormRequest
 
     public function messages()
     {
-        return [
-            'name.required' => 'Filed must not be empty!',
-            'name.unique' => 'Filed must be unique!',
-            'image.required' => 'Filed must not be empty!'
-        ];
+        if ($this->method() === 'POST') {
+            return [
+                'name.required' => 'Filed must not be empty!',
+                'name.unique' => 'Filed must be unique!',
+                'image.required' => 'Filed must not be empty!'
+            ];
+        } else {
+            return [
+                'name.required' => 'Filed must not be empty!',
+                'name.unique' => 'Filed must be unique!',
+            ];
+        }
     }
 }
