@@ -10,7 +10,7 @@
 <div class="card">
     <div class="card-header">
         <h3 class="text-info d-inline">Manage Category</h3>
-        <a href="{{ route('category.create') }}" class="btn btn-success btn-sm" style="float: right">Add New Category</a>
+        <a href="@route('category.create')" class="btn btn-success btn-sm" style="float: right">Add New Category</a>
     </div>
     <div class="card-body">
         <table class="table table-bordered">
@@ -33,8 +33,9 @@
                             <img src="{{ $category->image }}" alt="" width="100px">
                         </td>
                         <td>
-                            <a href="{{ route('category.edit',$category->slug) }}" class="btn btn-primary btn-sm">Edit</a>
-                            <a href="{{ route('category.show',$category->slug) }}" class="btn btn-success btn-sm">View</a>
+                            <a href="@route('category.edit',$category->slug)" class="btn btn-primary btn-sm">Edit</a>
+                            {{-- <a href="{{ route('category.edit',$category->slug) }}" class="btn btn-primary btn-sm">Edit</a> --}}
+                            <a href="@route('category.show',$category->slug)" class="btn btn-success btn-sm">View</a>
 
                             <form  class="d-inline" action="{{ route('category.destroy',$category->slug) }}" method="POST">
                                 @method('DELETE')
