@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Machanic;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -62,4 +63,12 @@ Route::get('has-many', function () {
     // return User::find(2)->oldestPost;
     // return User::find(5)->oldestPost;
     return view('has-many', compact('users'));
+});
+
+
+// Has one through
+
+Route::get('has-one-through', function () {
+    $machanics = Machanic::with('car', 'owner')->get();
+    return view('has-one-through', compact('machanics'));
 });
