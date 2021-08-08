@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Country;
 use App\Models\Machanic;
 use App\Models\Post;
 use App\Models\User;
@@ -71,4 +72,13 @@ Route::get('has-many', function () {
 Route::get('has-one-through', function () {
     $machanics = Machanic::with('car', 'owner')->get();
     return view('has-one-through', compact('machanics'));
+});
+
+
+
+// Has many through
+
+Route::get('has-many-through', function () {
+    $countries = Country::with('cities.shops')->get();
+    return view('has-many-through', compact('countries'));
 });
