@@ -8,6 +8,7 @@ use App\Models\Country;
 use App\Models\Machanic;
 use App\Models\Owner;
 use App\Models\Shop;
+use App\Models\Skill;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Database\Seeders\PostSeeder;
@@ -50,6 +51,12 @@ class DatabaseSeeder extends Seeder
             Shop::create([
                 'city_id' => rand(1, 5),
                 'name' => $shops[$i],
+            ]);
+        }
+        $skills = ['PHP', 'LARAVEL', 'VUE', 'REACT', 'JS'];
+        for ($i = 0; $i < count($skills); $i++) {
+            Skill::create([
+                'name' => $skills[$i],
             ]);
         }
     }

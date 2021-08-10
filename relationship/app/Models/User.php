@@ -68,4 +68,9 @@ class User extends Authenticatable
         return $this->hasOne(Post::class)->ofMany('view', 'min');
         return $this->hasOne(Post::class)->oldestOfMany();
     }
+
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class, 'skill_user')->withTimestamps()->as('biplob')->withPivot('view');
+    }
 }
