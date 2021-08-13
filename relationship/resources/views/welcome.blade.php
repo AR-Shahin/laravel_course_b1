@@ -26,7 +26,13 @@
         @endforelse
     </div>
 
+<hr>
+{{ $test }} <br>
+{{ $key }}
 
+{{ $countries }}
+<br>
+{{ $globalSkills }}
 
   </body>
 </html>

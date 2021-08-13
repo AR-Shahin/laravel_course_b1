@@ -61,7 +61,7 @@ Route::get('has-many', function () {
     //     'user_id' => 5
     // ]);
 
-    // return User::find(2)->oldestPost;
+    //User::find(2)->oldestPost;
     // return User::find(5)->oldestPost;
     return view('has-many', compact('users'));
 });
@@ -122,4 +122,19 @@ Route::get('many-to-many', function () {
 
     return $users = User::has('skills')->with('skills')->get();
     return view('many-to-many', compact('users'));
+});
+
+
+Route::get('abc', function () {
+    return view('abc');
+});
+Route::get('1st', function () {
+    return view('test.1st');
+});
+Route::get('2nd', function () {
+    return view('test.2nd');
+});
+
+Route::get('3rd', function () {
+    return view('test.3rd');
 });
