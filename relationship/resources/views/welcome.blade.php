@@ -34,5 +34,13 @@
 <br>
 {{ $globalSkills }}
 
+<br><br>
+@customUppercase('shahin')
+
+<br>
+<a href="{{ route('2nd') }}">Click Me</a> <!-- Old Way -->
+
+<a href=" @route('2nd')">Another 2nd</a> <br>
+<a href="@route('3rd',['id' => 5,'another' => 55])">3rrd</a>
   </body>
 </html>

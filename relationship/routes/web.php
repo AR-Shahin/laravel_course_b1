@@ -133,8 +133,8 @@ Route::get('1st', function () {
 });
 Route::get('2nd', function () {
     return view('test.2nd');
-});
+})->name('2nd');
 
-Route::get('3rd', function () {
+Route::get('3rd/{id}/{another}', function () {
     return view('test.3rd');
-});
+})->name('3rd');
