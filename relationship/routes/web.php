@@ -37,7 +37,8 @@ Route::get('/', function () {
     //     'post_code' => 789,
     //     'address' => "Dhaka"
     // ]);
-    return view('welcome', compact('users'));
+    $var = 'Coming From Database';
+    return view('welcome', compact('users', 'var'));
 });
 
 

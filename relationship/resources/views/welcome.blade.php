@@ -42,5 +42,11 @@
 
 <a href=" @route('2nd')">Another 2nd</a> <br>
 <a href="@route('3rd',['id' => 5,'another' => 55])">3rrd</a>
+<hr>
+<hr>
+
+<x-alert/>
+
+<x-user.user title="This is our title" test="test" :shahin="$var"/>
   </body>
 </html>
