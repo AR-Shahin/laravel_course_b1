@@ -89,3 +89,5 @@ Route::get('/params/{id}', [TestController::class, 'params'])->name('controller'
 
 
 Route::resource('category', CategoryController::class);
+
+# Component
