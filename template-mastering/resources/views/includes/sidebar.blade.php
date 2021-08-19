@@ -56,6 +56,14 @@
               <p>Category</p>
             </a>
           </li>
+
+
+          <li class="nav-item">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button class="btn btn-success btn-block">Logout</button>
+            </form>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
