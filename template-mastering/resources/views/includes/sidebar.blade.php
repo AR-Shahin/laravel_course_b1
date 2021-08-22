@@ -58,12 +58,22 @@
           </li>
 
 
+          @auth('web')
           <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button class="btn btn-success btn-block">Logout</button>
             </form>
           </li>
+          @endauth
+          @auth('admin')
+          <li class="nav-item">
+            <form action="{{ route('admin.logout') }}" method="POST">
+                @csrf
+                <button class="btn btn-info btn-block">Logout</button>
+            </form>
+          </li>
+          @endauth
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
