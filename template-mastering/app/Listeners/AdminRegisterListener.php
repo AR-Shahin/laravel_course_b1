@@ -8,7 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class AdminRegisterListener implements ShouldQueue
+class AdminRegisterListener
 {
     /**
      * Create the event listener.
