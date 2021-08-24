@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title' ,'User Login')
+@section('title' ,'User Forgot')
 
 
 @section('app_content')
@@ -14,7 +14,7 @@
           <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
-            <form action="{{ route('authenticate') }}" method="post">
+            <form action="{{ route('password.email') }}" method="post">
 
                 @csrf
               <div class="input-group mb-3">
@@ -27,30 +27,10 @@
               </div>
               @error('email')
               <span class="text-danger">{{ $message }}</span>
-              @enderror
-              <div class="input-group mb-3">
-                <input type="password" class="form-control" placeholder="Password" name="password">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
-                  </div>
-                </div>
-              </div>
-              @error('password')
-              <span class="text-danger">{{ $message }}</span>
-              @enderror
+            @enderror
               <div class="row">
-                <div class="col-8">
-                  <div class="icheck-primary">
-                    <input type="checkbox" id="remember">
-                    <label for="remember">
-                      Remember Me
-                    </label>
-                  </div>
-                </div>
-                <!-- /.col -->
                 <div class="col-4">
-                  <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                  <button type="submit" class="btn btn-primary btn-block">Submit</button>
                 </div>
                 <!-- /.col -->
               </div>
@@ -58,7 +38,7 @@
 
 
             <p class="mb-1">
-              <a href="{{ route('password.request') }}">I forgot my password</a>
+              <a href="{{ route('login') }}">Login</a>
             </p>
             <p class="mb-0">
               <a href="{{ route('register') }}" class="text-center">Register</a>

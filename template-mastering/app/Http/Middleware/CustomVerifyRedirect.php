@@ -20,7 +20,7 @@ class CustomVerifyRedirect
 
             if ($request->user()->getTable() === 'admins') {
                 return redirect()->route('admin.verification.notice');
-            } else if ($request->user()->getTable() === 'web') {
+            } else if ($request->user()->getTable() === 'users') {
                 return redirect()->route('verification.notice');
             }
         }

@@ -3,10 +3,13 @@
 use App\Models\User;
 use App\Models\Product;
 use App\Scopes\ViewScope;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -19,11 +22,11 @@ Route::resource('category', CategoryController::class);
 
 Route::get('login', function () {
     return view('auth.login');
-})->name('login')->middleware('guest');
+})->name('login')->middleware('guest:web');
 
 Route::post('authenticate', function (Request $request) {
 
-    //  return $request->all();
+    // return $request->all();
     $credentials = $request->validate([
         'email' => ['required', 'email', 'exists:users,email'],
         'password' => ['required'],
@@ -31,7 +34,7 @@ Route::post('authenticate', function (Request $request) {
     // if ($request->remember) {
     //     $credentials['remember'] =  true;
     // }
-    if (Auth::attempt($credentials)) {
+    if (Auth::guard('web')->attempt($credentials)) {
         $request->session()->regenerate();
 
         return redirect()->intended('dashboard');
@@ -58,11 +61,11 @@ Route::post('store', function (Request $request) {
     $request->session()->regenerate();
     Auth::guard('web')->login($user);
 
-    return redirect()->intended('dashboard');
+    return redirect()->route('dashboard');
     // return $request->all();
 })->name('store')->middleware('guest');
 
-Route::get('dashboard', fn () => view('auth.dashboard'))->name('dashboard')->middleware(['auth', 'verified']);
+Route::get('dashboard', fn () => view('auth.dashboard'))->name('dashboard')->middleware(['auth:web', 'custom_verify']);
 
 Route::post('logout', function (Request $request) {
 
@@ -105,3 +108,53 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+# Reset Password
+
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
+
+Route::post('/forgot-password', function (Request $request) {
+    $request->validate(['email' => 'required|email|exists:users,email']);
+
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+
+    return $status === Password::RESET_LINK_SENT
+        ? back()->with(['status' => __($status)])
+        : back()->withErrors(['email' => __($status)]);
+})->middleware('guest:web')->name('password.email');
+
+
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
+
+
+Route::post('/reset-password', function (Request $request) {
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email',
+        'password' => 'required|min:8|confirmed',
+    ]);
+
+    $status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function ($user, $password) {
+            $user->forceFill([
+                'password' => $password
+            ])->setRememberToken(Str::random(60));
+
+            $user->save();
+
+            //  event(new PasswordReset($user));
+        }
+    );
+
+    return $status === Password::PASSWORD_RESET
+        ? redirect()->route('login')->with('status', __($status))
+        : back()->withErrors(['email' => [__($status)]]);
+})->middleware('guest:web')->name('password.update');
