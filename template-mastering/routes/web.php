@@ -11,7 +11,7 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
-    return view('layout.master');
+    return view('auth.login');
 });
 
 
@@ -98,3 +98,10 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
 //     return Product::DynamicStatus()->get()->count();
 // });
+
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
