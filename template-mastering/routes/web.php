@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SkillController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
@@ -18,6 +19,7 @@ Route::get('/', function () {
 });
 
 
+Route::resource('skill', SkillController::class);
 Route::resource('category', CategoryController::class);
 
 Route::get('login', function () {
@@ -158,3 +160,7 @@ Route::post('/reset-password', function (Request $request) {
         ? redirect()->route('login')->with('status', __($status))
         : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest:web')->name('password.update');
+
+
+
+Route::get('adminCanAccess', fn () => 'admin Can get this access')->middleware('can:isAdmin');

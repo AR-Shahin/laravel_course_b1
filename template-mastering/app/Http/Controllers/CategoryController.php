@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class CategoryController extends Controller
 {
@@ -28,6 +31,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        Gate::allows('isAdmin') ? Response::allow()
+            : abort(403);
         return view()->exists('Category.create') ? view('Category.create') : abort(404);
     }
 
@@ -86,7 +91,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-
+        Gate::allows('update-post', $category) ? Response::allow()
+            : abort(403);
         return view('Category.edit', compact('category'));
     }
 

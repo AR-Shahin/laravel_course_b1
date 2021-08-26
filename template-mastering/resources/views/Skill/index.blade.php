@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title') Category @stop
+@section('title') skill @stop
 
 @push('css')
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
@@ -9,8 +9,8 @@
 
 <div class="card">
     <div class="card-header">
-        <h3 class="text-info d-inline">Manage Category</h3>
-        <a href="@route('category.create')" class="btn btn-success btn-sm" style="float: right">Add New Category</a>
+        <h3 class="text-info d-inline">Manage skill</h3>
+        <a href="@route('skill.create')" class="btn btn-success btn-sm" style="float: right">Add New skill</a>
     </div>
 
     {{-- @cannot('isAdmin')
@@ -31,31 +31,31 @@
             <tr>
                 <th>Sl</th>
                 <th>Name</th>
-                <th>Image</th>
+                <th>User</th>
                 <th>Actions</th>
             </tr>
             <tbody>
-                @foreach ($categories as $category)
+                @foreach ($skills as $skill)
                     <tr>
                         <td>
-                            {{ $category->id }}
+                            {{ $skill->id }}
+                        </td>
+
+                        <td>
+                            {{ $skill->name }}
                         </td>
                         <td>
-                            {{ $category->name }}
-                        </td>
-                        <td>
-                            <img src="{{ $category->image }}" alt="" width="100px">
+                            {{ $skill->user->name }}
                         </td>
                         <td>
 
-                            {{-- @can('update-post',$category)
-                            <a href="@route('category.edit',$category->slug)" class="btn btn-primary btn-sm">Edit</a>
-                            @endcan --}}
+                            @can('update', $skill)
+                            <a href="{{ route('skill.edit',$skill->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                            @endcan
 
-                            {{-- <a href="{{ route('category.edit',$category->slug) }}" class="btn btn-primary btn-sm">Edit</a> --}}
-                            <a href="@route('category.show',$category->slug)" class="btn btn-success btn-sm">View</a>
+                            <a href="@route('skill.show',$skill->id)" class="btn btn-success btn-sm">View</a>
 
-                            <form  class="d-inline" action="{{ route('category.destroy',$category->slug) }}" method="POST">
+                            <form  class="d-inline" action="{{ route('skill.destroy',$skill->id) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
                                 <button class="btn btn-danger btn-sm">Delete</button>
@@ -67,7 +67,7 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $categories->links() }}
+        {{ $skills->links() }}
     </div>
 </div>
 @stop

@@ -57,7 +57,13 @@
             </a>
           </li>
 
-
+        </li>
+        <li class="nav-item">
+          <a href="@route('skill.index')" class="nav-link">
+            <i class="nav-icon far fa-circle text-warning"></i>
+            <p>Skill</p>
+          </a>
+        </li>
           @auth('web')
           <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST">
