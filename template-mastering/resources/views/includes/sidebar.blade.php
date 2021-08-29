@@ -59,6 +59,12 @@
 
         </li>
         <li class="nav-item">
+            <a href="@route('cache')" class="nav-link">
+              <i class="nav-icon far fa-circle text-warning"></i>
+              <p>Cache</p>
+            </a>
+          </li>
+        <li class="nav-item">
           <a href="@route('skill.index')" class="nav-link">
             <i class="nav-icon far fa-circle text-warning"></i>
             <p>Skill</p>

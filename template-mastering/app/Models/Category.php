@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\CategoryDeleteEvent;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,5 +38,22 @@ class Category extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+
+    protected $dispatchesEvents = [
+        'deleted' => CategoryDeleteEvent::class,
+        // 'created' => CategoryDeleteEvent::class,
+    ];
+
+
+    protected static function booted()
+    {
+        static::updated(function ($product) {
+            cache()->forget('categories');
+
+            $categories = Category::get();
+            cache('categories', $categories);
+        });
     }
 }

@@ -2,16 +2,18 @@
 
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Category;
 use App\Scopes\ViewScope;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Password;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
@@ -164,3 +166,41 @@ Route::post('/reset-password', function (Request $request) {
 
 
 Route::get('adminCanAccess', fn () => 'admin Can get this access')->middleware('can:isAdmin');
+
+
+
+# Cache
+Route::get('cache', function () {
+
+
+    // return Cache::get('test', 'nai');
+    // return Cache::get('test', function () {
+    //     return Category::get();
+    // }, 500);
+
+    //  return  Cache::forget('categories');
+    // if (Cache::has('test')) {
+    //     return 'ok';
+    // } else {
+    //     return 'no';
+    // }
+    $categories = Cache::rememberForever('categories', function () {
+        return Category::get();
+    });
+    return view('cache', compact('categories'));
+})->name('cache')->middleware('auth');
+
+
+
+Route::get('test', function () {
+
+    // return Category::create([
+    //     'name' => 'dddddd',
+    //     'slug' => 'sss',
+    //     'user_id' => 2
+    // ]);
+
+    return Category::find(2)->update([
+        'name' => 'new Name new'
+    ]);
+});
