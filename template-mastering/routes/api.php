@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('category', fn () => Category::latest()->get());
+Route::post('category', function (Request $request) {
+    return Category::create($request->all());
+});
+
+Route::delete('category/{category}', function ($category) {
+    Category::find($category)->delete();
 });
