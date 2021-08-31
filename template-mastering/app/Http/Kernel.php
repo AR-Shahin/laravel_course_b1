@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CacheResponseMiddleware;
 use App\Http\Middleware\CustomVerifyRedirect;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -63,6 +64,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'custom_verify' => CustomVerifyRedirect::class
+        'custom_verify' => CustomVerifyRedirect::class,
+        'response_cache' => CacheResponseMiddleware::class
     ];
 }

@@ -44,16 +44,17 @@ class Category extends Model
     protected $dispatchesEvents = [
         'deleted' => CategoryDeleteEvent::class,
         // 'created' => CategoryDeleteEvent::class,
+        'updated' => CategoryDeleteEvent::class
     ];
 
 
     protected static function booted()
     {
-        static::updated(function ($product) {
-            cache()->forget('categories');
+        // static::updated(function ($product) {
+        //     cache()->forget('categories');
 
-            $categories = Category::get();
-            cache('categories', $categories);
-        });
+        //     $categories = Category::get();
+        //     cache('categories', $categories);
+        // });
     }
 }

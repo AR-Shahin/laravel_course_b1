@@ -69,7 +69,7 @@ Route::post('store', function (Request $request) {
     // return $request->all();
 })->name('store')->middleware('guest');
 
-Route::get('dashboard', fn () => view('auth.dashboard'))->name('dashboard')->middleware(['auth:web', 'custom_verify']);
+Route::get('dashboard', fn () => view('auth.dashboard'))->name('dashboard')->middleware(['auth:web', 'custom_verify', 'response_cache:10']);
 
 Route::post('logout', function (Request $request) {
 
@@ -201,6 +201,6 @@ Route::get('test', function () {
     // ]);
 
     return Category::find(2)->update([
-        'name' => 'new Name new'
+        'name' => 'new Name new new'
     ]);
 });
