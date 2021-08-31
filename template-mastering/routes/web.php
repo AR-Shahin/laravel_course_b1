@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Http;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -185,7 +186,7 @@ Route::get('cache', function () {
     //     return 'no';
     // }
     $categories = Cache::rememberForever('categories', function () {
-        return Category::get();
+        return Category::all();
     });
     return view('cache', compact('categories'));
 })->name('cache')->middleware('auth');
@@ -202,5 +203,27 @@ Route::get('test', function () {
 
     return Category::find(2)->update([
         'name' => 'new Name new new'
+    ]);
+});
+
+
+Route::get('collect', function () {
+    return Category::all();
+});
+
+$base_path = 'http://127.0.0.1:8001/api';
+Route::get('http', function () use ($base_path) {
+
+    Http::post("{$base_path}/todos", [
+        'title' => 'Another Application',
+        'comment' => 'test',
+        'note' => 'sss'
+    ]);
+    $response =  Http::Get("{$base_path}/todos");
+    // dd($response);
+    //return $response->body();
+
+    return view('http', [
+        'data' => json_decode($response->body())
     ]);
 });
