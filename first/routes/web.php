@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TestController;
+use App\Mail\TestMail;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 
@@ -91,3 +94,13 @@ Route::get('/params/{id}', [TestController::class, 'params'])->name('controller'
 Route::resource('category', CategoryController::class);
 
 # Component
+
+
+# Mail
+
+Route::get('mail', function () {
+    $user =  User::first();
+
+    Mail::to($user->email)->send(new TestMail($user));
+    //return new TestMail($user);
+});
