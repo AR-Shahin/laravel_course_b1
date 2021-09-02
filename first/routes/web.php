@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TestController;
+use App\Mail\OrderShipped;
 use App\Mail\TestMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
@@ -99,8 +100,11 @@ Route::resource('category', CategoryController::class);
 # Mail
 
 Route::get('mail', function () {
-    $user =  User::first();
+    // $users =  User::whereNull('email_verified_at')->get();
 
-    Mail::to($user->email)->send(new TestMail($user));
+    // foreach ($users as $user) {
+    //     Mail::to($user->email)->send(new TestMail($user));
+    // }
+    Mail::to('s@mail.com')->send(new OrderShipped);
     //return new TestMail($user);
 });
