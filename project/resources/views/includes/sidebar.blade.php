@@ -72,17 +72,9 @@
         </li>
           @auth('web')
           <li class="nav-item">
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button class="btn btn-success btn-block">Logout</button>
-            </form>
-          </li>
-          @endauth
-          @auth('web')
-          <li class="nav-item">
             <form action="{{ route('admin.logout') }}" method="POST">
                 @csrf
-                <button class="btn btn-info btn-block">Logout</button>
+                <button class="btn btn-info btn-block" onclick=" return confirm('Are you sure to logout in your Dashboard!')">Logout</button>
             </form>
           </li>
           @endauth

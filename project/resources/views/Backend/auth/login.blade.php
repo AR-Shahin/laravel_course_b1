@@ -1,23 +1,20 @@
 @extends('layouts.backend_app')
 
-@section('title' ,'admin Login')
+@section('title' ,'Admin Login')
 
 @section('app_content')
 <div class="login-page">
     <div class="login-box">
-        <div class="login-logo">
-          <a href=""><b>admin </b>LTE</a>
-        </div>
         <!-- /.login-logo -->
         <div class="card">
           <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <h3 class="login-box-msg">Admin Login</h3>
 
             <form action="{{ route('admin.login') }}" method="post">
 
                 @csrf
               <div class="input-group mb-3">
-                <input type="email" class="form-control" placeholder="Email" name="email" value="admin@mail.com">
+                <input type="email" class="form-control" placeholder="Enter Your Email" name="email">
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <span class="fas fa-envelope"></span>
@@ -28,7 +25,7 @@
               <span class="text-danger">{{ $message }}</span>
               @enderror
               <div class="input-group mb-3">
-                <input type="password" class="form-control" placeholder="Password" name="password">
+                <input type="password" class="form-control" placeholder=" Enter Your Password" name="password">
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <span class="fas fa-lock"></span>
@@ -57,10 +54,10 @@
 
 
             <p class="mb-1">
-              <a href="{{ route('admin.password.request') }}">I forgot my password</a>
+              <a href="">I forgot my password</a>
             </p>
             <p class="mb-0">
-              <a href="{{ route('admin.register') }}" class="text-center">Register</a>
+              <a href="" class="text-center">Register</a>
             </p>
           </div>
           <!-- /.login-card-body -->
