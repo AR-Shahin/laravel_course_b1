@@ -14,11 +14,12 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $categories = ['Category 1', 'Category 2', 'Category 3'];
+        $categories = ['PHP', 'LARAVEL', 'JS'];
 
         for ($i = 0; $i < count($categories); $i++) {
             Category::create([
-                'name' => $categories[$i]
+                'name' => $categories[$i],
+                'slug' => $categories[$i]
             ]);
         }
     }

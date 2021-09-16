@@ -59,9 +59,9 @@
 
         </li>
         <li class="nav-item">
-            <a href="@route('cache')" class="nav-link">
+            <a href="{{ route('admin.sub-category.index') }}" class="nav-link">
               <i class="nav-icon far fa-circle text-warning"></i>
-              <p>Cache</p>
+              <p>Sub Category</p>
             </a>
           </li>
         <li class="nav-item">
