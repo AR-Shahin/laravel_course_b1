@@ -40,4 +40,21 @@ class CategoryController extends Controller
         $category->delete();
         return 1;
     }
+
+    public function show(Category $category)
+    {
+        return $category;
+    }
+    public function update(CategoryRequest $request, Category $category)
+    {
+        $category =   $category->update([
+            'name' => $request->name,
+            'slug' => $request->name
+        ]);
+        if ($category) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

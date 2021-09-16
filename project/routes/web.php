@@ -13,3 +13,7 @@ Route::get('/admin/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/admin_auth.php';
+
+Route::get('test', function () {
+    return view('Backend.Category.test');
+});
