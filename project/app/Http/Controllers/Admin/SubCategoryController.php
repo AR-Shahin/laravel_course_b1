@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\subCategory;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Category;
 
 class SubCategoryController extends Controller
 {
@@ -14,18 +16,11 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::latest()->get();
+        return view('Backend.SubCat.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +30,11 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        subCategory::create([
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'slug' => $request->name
+        ]);
     }
 
     /**
@@ -49,16 +48,7 @@ class SubCategoryController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\subCategory  $subCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(subCategory $subCategory)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
