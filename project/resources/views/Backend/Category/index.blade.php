@@ -128,11 +128,45 @@
 $('body').on('click','#deleteRow',function(){
     let slug = $(this).attr('data-id');
     let url = base_url + '/admin/category/' + slug;
-console.log(url);
-axios.delete(url).then(res => {
-   getAllCategory();
-   setSuccessMessage('Data Delete Successfuly!')
+    const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
 })
+
+swalWithBootstrapButtons.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, delete it!',
+  cancelButtonText: 'No, cancel!',
+  reverseButtons: true,
+  margin : '5em',
+}).then((result) => {
+  if (result.isConfirmed) {
+    axios.delete(url).then(res => {
+   getAllCategory();
+})
+    swalWithBootstrapButtons.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  } else if (
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.cancel
+  ) {
+    swalWithBootstrapButtons.fire(
+      'Cancelled',
+      'Your imaginary file is safe :)',
+      'error'
+    )
+  }
+})
+
 })
 
 // edit
@@ -142,6 +176,7 @@ $('body').on('click','#editRow',function(){
     let edit_name = $('#edit_name');
     let edit_cat_slug = $('#edit_cat_slug');
     let catEditError = $('#catEditError');
+
     axios.get(url).then(res => {
         let {data} = res;
         edit_name.val(data.name)
