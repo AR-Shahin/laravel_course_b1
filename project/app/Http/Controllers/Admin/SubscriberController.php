@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\website;
+use App\Http\Controllers\Controller;
+use App\Models\subscriber;
 use Illuminate\Http\Request;
 
-class WebsiteController extends Controller
+class SubscriberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class WebsiteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\website  $website
+     * @param  \App\Models\subscriber  $subscriber
      * @return \Illuminate\Http\Response
      */
-    public function show(website $website)
+    public function show(subscriber $subscriber)
     {
         //
     }
@@ -52,10 +53,10 @@ class WebsiteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\website  $website
+     * @param  \App\Models\subscriber  $subscriber
      * @return \Illuminate\Http\Response
      */
-    public function edit(website $website)
+    public function edit(subscriber $subscriber)
     {
         //
     }
@@ -64,10 +65,10 @@ class WebsiteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\website  $website
+     * @param  \App\Models\subscriber  $subscriber
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, website $website)
+    public function update(Request $request, subscriber $subscriber)
     {
         //
     }
@@ -75,10 +76,10 @@ class WebsiteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\website  $website
+     * @param  \App\Models\subscriber  $subscriber
      * @return \Illuminate\Http\Response
      */
-    public function destroy(website $website)
+    public function destroy(subscriber $subscriber)
     {
         //
     }

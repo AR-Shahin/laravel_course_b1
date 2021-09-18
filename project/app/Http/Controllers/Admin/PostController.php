@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\tag;
+use App\Http\Controllers\Controller;
+use App\Models\post;
 use Illuminate\Http\Request;
 
-class TagController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class TagController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(tag $tag)
+    public function show(post $post)
     {
         //
     }
@@ -52,10 +53,10 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(tag $tag)
+    public function edit(post $post)
     {
         //
     }
@@ -64,10 +65,10 @@ class TagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, tag $tag)
+    public function update(Request $request, post $post)
     {
         //
     }
@@ -75,10 +76,10 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tag $tag)
+    public function destroy(post $post)
     {
         //
     }

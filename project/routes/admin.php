@@ -10,5 +10,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
 
     Route::resource('category', CategoryController::class)->except(['create', 'edit']);
     Route::get('fetch-category', [CategoryController::class, 'fetchCategory'])->name('fetch-category');
+
+    Route::get('fetch-sub-category', [SubCategoryController::class, 'fetchSubCategory'])->name('fetch-sub-category');
     Route::resource('sub-category', SubCategoryController::class)->except(['create', 'edit']);
 });

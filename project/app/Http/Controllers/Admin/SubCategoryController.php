@@ -5,10 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Models\subCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubCategoryRequest;
 use App\Models\Category;
 
 class SubCategoryController extends Controller
 {
+
+    public function fetchSubCategory()
+    {
+        return SubCategory::get();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +34,7 @@ class SubCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubCategoryRequest $request)
     {
         subCategory::create([
             'name' => $request->name,
@@ -45,7 +51,7 @@ class SubCategoryController extends Controller
      */
     public function show(subCategory $subCategory)
     {
-        //
+        return $subCategory;
     }
 
 
@@ -57,9 +63,18 @@ class SubCategoryController extends Controller
      * @param  \App\Models\subCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, subCategory $subCategory)
+    public function update(SubCategoryRequest $request, subCategory $subCategory)
     {
-        //
+        $result = $subCategory->update([
+            'category_id' => $request->category_id,
+            'name' => $request->name,
+            'slug' => $request->name
+        ]);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -70,6 +85,7 @@ class SubCategoryController extends Controller
      */
     public function destroy(subCategory $subCategory)
     {
-        //
+        $subCategory->delete();
+        return true;
     }
 }

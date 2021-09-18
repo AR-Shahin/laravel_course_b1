@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\post;
+use App\Http\Controllers\Controller;
+use App\Models\user;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\post  $post
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(post $post)
+    public function show(user $user)
     {
         //
     }
@@ -52,10 +53,10 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\post  $post
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(post $post)
+    public function edit(user $user)
     {
         //
     }
@@ -64,10 +65,10 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\post  $post
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, post $post)
+    public function update(Request $request, user $user)
     {
         //
     }
@@ -75,10 +76,10 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\post  $post
+     * @param  \App\Models\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(post $post)
+    public function destroy(user $user)
     {
         //
     }
