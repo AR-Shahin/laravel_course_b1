@@ -65,9 +65,9 @@
             </a>
           </li>
         <li class="nav-item">
-          <a href="@route('skill.index')" class="nav-link">
+          <a href="{{ route('admin.post.index') }}" class="nav-link">
             <i class="nav-icon far fa-circle text-warning"></i>
-            <p>Skill</p>
+            <p>Post</p>
           </a>
         </li>
           @auth('web')

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\post;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -15,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return view('Backend.Post.index');
     }
 
     /**
@@ -25,7 +27,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::latest()->get();
+        return view('Backend.Post.create', compact('categories'));
     }
 
     /**
@@ -82,5 +85,24 @@ class PostController extends Controller
     public function destroy(post $post)
     {
         //
+    }
+
+    public function getSubCategoryByCategory($category_id)
+    {
+        return SubCategory::whereCategoryId($category_id)->get();
+    }
+
+    public function checkPostExistOrNot($title)
+    {
+        $post = Post::whereTitle($title)->first();
+        if ($post) {
+            return response()->json([
+                'flag' => 'EXIST'
+            ]);
+        } else {
+            return response()->json([
+                'flag' => 'NOT_EXIST'
+            ]);
+        }
     }
 }

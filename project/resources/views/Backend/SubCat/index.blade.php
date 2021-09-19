@@ -13,6 +13,7 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>SL</th>
+                        <th>Parent</th>
                         <th>Name</th>
                         <th>Actions</th>
                     </tr>
@@ -101,6 +102,7 @@
                 $.each( data, function( key, value ) {
                     rows += '<tr>';
                     rows += '<td>'+ ++i +'</td>';
+                    rows += '<td>'+value.parent.name+'</td>';
                     rows += '<td>'+value.name+'</td>';
                     rows += '<td data-id="'+value.id+'" class="text-center">';
                     rows += '<a class="btn btn-sm btn-info text-light" id="editRow" data-id="'+value.slug+'" data-toggle="modal" data-target="#editModal">Edit</a> ';
@@ -115,14 +117,14 @@
     function getAllSubCategory(){
                 axios.get("{{ route('admin.fetch-sub-category') }}")
                 .then((res) => {
-                    // console.log(res)
+                     console.log(res.data)
                     table_data_row(res.data)
                 })
             }
 
         getAllSubCategory();
 
-    // Store      
+    // Store
     $('body').on('submit','#addSubCategoryForm',function(e){
     e.preventDefault();
     let name = $('#name');
@@ -173,7 +175,7 @@
 
             axios.get(url)
             .then((res) => {
-                let data = res.data; 
+                let data = res.data;
                 edit_sub_cat_id.val(data.category_id);
                 edit_name.val(data.name);
                 edit_sub_cat_slug.val(data.slug);
@@ -183,7 +185,7 @@
             })
 
         })
-    
+
         // Update
         $('body').on('submit', "#updateSubCategoryForm", function(e){
             e.preventDefault();
@@ -207,7 +209,7 @@
                 getAllSubCategory();
                 setSuccessMessage('Data update Successfully!');
             })
-            .catch((err) => {           
+            .catch((err) => {
                 if(err.response.data.errors.name){
                     subCatEditNameError.text(err.response.data.errors.name[0]);
                 }
