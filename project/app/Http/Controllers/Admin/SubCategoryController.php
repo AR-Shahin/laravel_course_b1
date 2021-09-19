@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\subCategory;
+use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Http\Requests\SubCategoryRequest;
 
 class SubCategoryController extends Controller
 {
+
+    public function fetchSubCategory()
+    {
+        return SubCategory::with('parent')->get();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -28,9 +34,9 @@ class SubCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubCategoryRequest $request)
     {
-        subCategory::create([
+        SubCategory::create([
             'name' => $request->name,
             'category_id' => $request->category_id,
             'slug' => $request->name
@@ -43,9 +49,9 @@ class SubCategoryController extends Controller
      * @param  \App\Models\subCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(subCategory $subCategory)
+    public function show(SubCategory $subCategory)
     {
-        //
+        return $subCategory;
     }
 
 
@@ -57,9 +63,18 @@ class SubCategoryController extends Controller
      * @param  \App\Models\subCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, subCategory $subCategory)
+    public function update(SubCategoryRequest $request, SubCategory $subCategory)
     {
-        //
+        $result = $subCategory->update([
+            'category_id' => $request->category_id,
+            'name' => $request->name,
+            'slug' => $request->name
+        ]);
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -68,8 +83,9 @@ class SubCategoryController extends Controller
      * @param  \App\Models\subCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(subCategory $subCategory)
+    public function destroy(SubCategory $subCategory)
     {
-        //
+        $subCategory->delete();
+        return true;
     }
 }

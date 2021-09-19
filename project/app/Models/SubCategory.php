@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class subCategory extends Model
+class SubCategory extends Model
 {
     use HasFactory;
     protected $fillable = ['category_id', 'name', 'slug'];
@@ -18,5 +18,10 @@ class subCategory extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    function parent()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }

@@ -18,3 +18,4 @@ function test(){
 }
 
 const log = (el = 'Ok') => console.log(el);
+const select = (el) => document.querySelector(el);

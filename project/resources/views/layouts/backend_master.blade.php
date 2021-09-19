@@ -19,7 +19,7 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
 
-     @includeIf('includes.breadcumb')
+
       <!-- /.content-header -->
       @if(session('message'))
       <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">

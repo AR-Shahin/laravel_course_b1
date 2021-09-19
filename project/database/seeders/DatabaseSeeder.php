@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\SubCategory;
 use Illuminate\Database\Seeder;
+use Database\Seeders\CategorySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class
         ]);
+        SubCategory::factory(10)->create();
     }
 }

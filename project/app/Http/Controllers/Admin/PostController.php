@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\website;
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
-class WebsiteController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,7 @@ class WebsiteController extends Controller
      */
     public function index()
     {
-        //
+        return view('Backend.Post.index');
     }
 
     /**
@@ -24,7 +27,8 @@ class WebsiteController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::latest()->get();
+        return view('Backend.Post.create', compact('categories'));
     }
 
     /**
@@ -41,10 +45,10 @@ class WebsiteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\website  $website
+     * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(website $website)
+    public function show(post $post)
     {
         //
     }
@@ -52,10 +56,10 @@ class WebsiteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\website  $website
+     * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(website $website)
+    public function edit(post $post)
     {
         //
     }
@@ -64,10 +68,10 @@ class WebsiteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\website  $website
+     * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, website $website)
+    public function update(Request $request, post $post)
     {
         //
     }
@@ -75,11 +79,30 @@ class WebsiteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\website  $website
+     * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(website $website)
+    public function destroy(post $post)
     {
         //
+    }
+
+    public function getSubCategoryByCategory($category_id)
+    {
+        return SubCategory::whereCategoryId($category_id)->get();
+    }
+
+    public function checkPostExistOrNot($title)
+    {
+        $post = Post::whereTitle($title)->first();
+        if ($post) {
+            return response()->json([
+                'flag' => 'EXIST'
+            ]);
+        } else {
+            return response()->json([
+                'flag' => 'NOT_EXIST'
+            ]);
+        }
     }
 }
