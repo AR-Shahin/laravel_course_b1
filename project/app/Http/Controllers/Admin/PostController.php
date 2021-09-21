@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\File;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -17,7 +21,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('Backend.Post.index');
+        $posts = Post::with('author')->latest()->get();
+        return view('Backend.Post.index', compact('posts'));
     }
 
     /**
@@ -37,9 +42,28 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $file = $request->file('image');
+
+        $data = [
+            'name' => $request->name,
+            'slug' => $request->name,
+            'category_id' => $request->category_id,
+            'sub_cat_id' => $request->sub_cat_id,
+            'short_des' => $request->short_des,
+            'long_des' => $request->long_des,
+            'status' => $request->status,
+            'author_id' => auth('web')->id(),
+            'image' => File::upload($file, 'post')
+        ];
+        $post =  Post::create($data);
+        if ($post) {
+            $this->notificationMessage();
+            return redirect()->route('admin.post.index');
+        } else {
+            return back();
+        }
     }
 
     /**

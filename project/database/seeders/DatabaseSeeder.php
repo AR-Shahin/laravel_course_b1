@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
 use App\Models\Admin;
 use App\Models\SubCategory;
 use Illuminate\Database\Seeder;
@@ -26,5 +27,6 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class
         ]);
         SubCategory::factory(10)->create();
+        Post::factory(50)->create();
     }
 }
