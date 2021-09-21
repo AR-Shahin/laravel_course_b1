@@ -10,15 +10,14 @@
         </div>
     </div>
     <div class="card-body">
-        <form action="" method="POST">
+        <form action="{{ route('admin.post.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="">Post Name</label>
-                        <input type="text" class="form-control @error('name')
-                        is-invalid
-                        @enderror" name="name" placeholder="Enter Post Name" id="name">
+                        <input type="text" class="form-control" name="name" placeholder="Enter Post Name" id="name" value>
+                        <input type="hidden" name="author_id" value="{{ Auth::user()->id}}" id="author_id">
                         @error('name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -28,12 +27,12 @@
                 <div class="col-12 col-md-3">
                     <div class="form-group">
                         <label for="">Category </label>
-                      <select name="category_id" id="category_id" class="form-control">
-                          <option value="">Select A Category</option>
-                          @foreach ($categories as $category)
-                          <option value="{{ $category->id }}">{{ $category->name }}</option>
-                          @endforeach
-                      </select>
+                        <select name="category_id" id="category_id" class="form-control">
+                            <option value="">Select A Category</option>
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
                         @error('category_id')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -52,6 +51,54 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-gorup">
+                        <label for="">Short Description</label>
+                        <textarea name="short_des" id="short_des" class="form-control" cols="30" rows="10" placeholder="Enter a short descripton in your psot"></textarea>
+                        @error('short_des')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-gorup">
+                        <label for="">Long Description</label>
+                        <textarea name="long_des" id="long_des" class="form-control" cols="30" rows="10" placeholder="Enter a short descripton in your psot"></textarea>
+                        @error('long_des')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            <div class="form-gorup">
+                <label for="">Image</label>
+                <input type="file" name="image" id="image" class="form-control">
+                @error('image')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="form-gorup">
+                <label class="mt-2" for="">Status</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" value="1" id="status">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Post Active
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" value="0" id="status" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Post Inactive
+                    </label>
+                  </div>
+                    @error('status')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+            </div>
+            <div class="form-gorup">
+                <button type="submit" class="form-control btn btn-success btn-block mt-5">Create Post</button>
+            </div> 
         </form>
     </div>
 </div>

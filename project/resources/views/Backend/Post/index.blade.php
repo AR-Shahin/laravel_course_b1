@@ -10,6 +10,14 @@
         </div>
 
     </div>
+    <div class="car-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                </tr>
+            </thead>
+        </table>
+    </div>
 </div>
 @endsection
 
