@@ -20,4 +20,17 @@ class Post extends Model
     {
         return 'slug';
     }
+
+    public function author()
+    {
+        return $this->belongsTo(Admin::class, 'author_id', 'id');
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+    public function sub_category()
+    {
+        return $this->belongsTo(SubCategory::class, 'sub_cat_id');
+    }
 }

@@ -34,8 +34,8 @@ class PostRequest extends FormRequest
                 'status' => "required"
             ];
         } else {
-             return [
-                'name' => "required|unique:categories,name,{$this->post->id}",
+            return [
+                'name' => "required|unique:posts,name,{$this->post->id}",
             ];
         }
     }

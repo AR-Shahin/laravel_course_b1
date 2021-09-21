@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\File;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Models\Category;
@@ -20,7 +21,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('Backend.Post.index');
+        $posts = Post::with('author')->latest()->get();
+        return view('Backend.Post.index', compact('posts'));
     }
 
     /**
@@ -44,11 +46,6 @@ class PostController extends Controller
     {
         $file = $request->file('image');
 
-        $fileName = time() . '_' . uniqid() . '.' . $file->extension();
-        Storage::putFileAs("public/post", $file, $fileName);
-
-        $path =  "storage/post/" . $fileName;
-
         $data = [
             'name' => $request->name,
             'slug' => $request->name,
@@ -57,7 +54,8 @@ class PostController extends Controller
             'short_des' => $request->short_des,
             'long_des' => $request->long_des,
             'status' => $request->status,
-            'author_id' => '1'
+            'author_id' => auth('web')->id(),
+            'image' => File::upload($file, 'post')
         ];
         $post =  Post::create($data);
         if ($post) {

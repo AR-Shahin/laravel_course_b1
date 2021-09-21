@@ -1,6 +1,9 @@
 
 @extends('layouts.backend_master')
 @section('title', 'Post Create')
+@push('css')
+<link rel="stylesheet" href="{{ asset('Backend') }}/plugins/summernote/summernote-bs4.min.css">
+@endpush
 @section('master_content')
 <div class="card">
     <div class="card-header ">
@@ -16,8 +19,7 @@
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="">Post Name</label>
-                        <input type="text" class="form-control" name="name" placeholder="Enter Post Name" id="name" value>
-                        <input type="hidden" name="author_id" value="{{ Auth::user()->id}}" id="author_id">
+                        <input type="text" class="form-control" name="name" placeholder="Enter Post Name" id="name" >
                         @error('name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -98,14 +100,18 @@
             </div>
             <div class="form-gorup">
                 <button type="submit" class="form-control btn btn-success btn-block mt-5">Create Post</button>
-            </div> 
+            </div>
         </form>
     </div>
 </div>
 @endsection
 
 @push('script')
+<script src="{{ asset('Backend') }}/plugins/summernote/summernote-bs4.min.js"></script>
+
     <script>
+        $('#short_des').summernote();
+        $('#long_des').summernote();
         // dependency select
 
         let category = select('#category_id');

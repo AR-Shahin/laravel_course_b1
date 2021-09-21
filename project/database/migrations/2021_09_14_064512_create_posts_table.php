@@ -23,7 +23,7 @@ class CreatePostsTable extends Migration
             $table->boolean('status')->default(true);
             $table->string('short_des');
             $table->text('long_des');
-            $table->double('view')->nullable();
+            $table->double('view')->default(0);
             $table->string('image')->nullable();
             $table->timestamps();
         });
