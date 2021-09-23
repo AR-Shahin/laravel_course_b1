@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostRequest extends FormRequest
+class SliderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,18 +25,12 @@ class PostRequest extends FormRequest
     {
         if ($this->method() === 'POST') {
             return [
-                'name' => "required|unique:posts,name",
-                'category_id' => "required",
-                'sub_cat_id' => "required",
-                'short_des' => "required",
-                'long_des' => "required",
-                'image' => "required",
-                'status' => "required"
+                'title' => "required|unique:sliders,title",
+                'image' => "required"
             ];
         } else {
             return [
-                'name' => "required|unique:posts,name,{$this->post->id}",
-                'sub_cat_id' => "required",
+                'title' => "required|unique:sliders,title,{$this->slider->id}",
             ];
         }
     }

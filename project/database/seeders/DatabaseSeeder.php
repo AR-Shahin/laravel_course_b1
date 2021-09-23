@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
         ]);
         // \App\Models\Admin::factory(10)->create();
         $this->call([
-            CategorySeeder::class
+            CategorySeeder::class,
+            WebsiteSeeder::class
         ]);
         SubCategory::factory(10)->create();
         Post::factory(50)->create();

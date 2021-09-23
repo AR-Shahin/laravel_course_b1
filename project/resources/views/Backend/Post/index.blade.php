@@ -36,13 +36,15 @@
                         <td>{{ $post->view }}</td>
                         <td>{{ $post->status == 1 ? 'Active' : 'Inactive' }}</td>
                         <td>
-                            <a href="" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i></a>
+                            <a href="" id="status" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i></a>
                             <a href="" class="btn btn-sm btn-warning"><i class="fa fa-arrow-down"></i></a>
                             <a href="" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
-                            <a href="" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('admin.post.edit', $post->slug) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
 
-                           <form action="" class="d-inline">
-                            <button href="" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                           <form action="{{ route('admin.post.destroy', $post->slug) }}" class="d-inline" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button onclick=" return confirm('Are you Sure Delete This Data?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                            </form>
                         </td>
                     </tr>
@@ -57,5 +59,6 @@
 <x-utility.data-table-js/>
 <script>
    $('#postTable').DataTable();
+
 </script>
 @endpush

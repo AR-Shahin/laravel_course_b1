@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\File;
 use App\Http\Controllers\Controller;
-use App\Models\slider;
+use App\Http\Requests\SliderRequest;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
@@ -15,7 +17,8 @@ class SliderController extends Controller
      */
     public function index()
     {
-        //
+        $sliders = Slider::latest()->get();
+        return view('backend.slider.index', compact('sliders'));
     }
 
     /**
@@ -25,7 +28,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.slider.create');
     }
 
     /**
@@ -34,18 +37,30 @@ class SliderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SliderRequest $request)
     {
-        //
+        $file = $request->file('image');
+
+        $result = Slider::create([
+            'title' => $request->title,
+            'image' => File::upload($file, 'Slider')
+        ]);
+
+        if ($result) {
+            $this->notificationMessage('Data Save Successfully!');
+            return redirect()->route('admin.slider.index');
+        } else {
+            return back();
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\slider  $slider
+     * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function show(slider $slider)
+    public function show(Slider $slider)
     {
         //
     }
@@ -53,34 +68,52 @@ class SliderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\slider  $slider
+     * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function edit(slider $slider)
+    public function edit(Slider $slider)
     {
-        //
+        return view('backend.slider.edit', compact('slider'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\slider  $slider
+     * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, slider $slider)
+    public function update(SliderRequest $request, Slider $slider)
     {
-        //
+        $OldImgPath = $slider->image;
+
+        if ($request->has('image')) {
+            $file = $request->file('image');
+
+            $slider->update([
+                'title' => $request->title,
+                'image' => File::update($file, $OldImgPath, 'Slider')
+            ]);
+        } else {
+            $slider->update([
+                'title' => $request->title
+            ]);
+        }
+        $this->notificationMessage('Data Update Successfully!');
+        return redirect()->route('admin.slider.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\slider  $slider
+     * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function destroy(slider $slider)
+    public function destroy(Slider $slider)
     {
-        //
+       File::delete($slider);
+        
+        $this->notificationMessage('Data Delete Successfully!');
+        return redirect()->route('admin.slider.index');
     }
 }

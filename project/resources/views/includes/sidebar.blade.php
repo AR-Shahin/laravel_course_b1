@@ -70,6 +70,24 @@
             <p>Post</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route('admin.tag.index') }}" class="nav-link">
+            <i class="nav-icon far fa-circle text-warning"></i>
+            <p>Tags</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('admin.slider.index') }}" class="nav-link">
+            <i class="nav-icon far fa-circle text-warning"></i>
+            <p>Sliders</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('admin.website.index') }}" class="nav-link">
+            <i class="nav-icon far fa-circle text-warning"></i>
+            <p>Website Details</p>
+          </a>
+        </li>
           @auth('web')
           <li class="nav-item">
             <form action="{{ route('admin.logout') }}" method="POST">

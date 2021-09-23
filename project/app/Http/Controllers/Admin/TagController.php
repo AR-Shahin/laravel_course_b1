@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\File;
 use App\Http\Controllers\Controller;
-use App\Models\tag;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\DocBlock\Tag as DocBlockTag;
 
 class TagController extends Controller
 {
@@ -15,7 +17,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::latest()->get();
+        return view('backend.tag.index', compact('tags'));
     }
 
     /**
@@ -25,7 +28,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.tag.create');
     }
 
     /**
@@ -36,7 +39,19 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required']
+        ]);
+
+        $tag = Tag::create([
+            'name' => $request->name
+        ]);
+        if ($tag) {
+            $this->notificationMessage();
+            return redirect()->route('admin.tag.index');
+        } else {
+            return back();
+        }
     }
 
     /**
@@ -45,7 +60,7 @@ class TagController extends Controller
      * @param  \App\Models\tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show(tag $tag)
+    public function show(Tag $tag)
     {
         //
     }
@@ -53,34 +68,49 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(tag $tag)
+    public function edit(Tag $tag)
     {
-        //
+        return view('backend.tag.edit', compact('tag'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, tag $tag)
+    public function update(Request $request, Tag $tag)
     {
-        //
+        $request->validate([
+            'name' => "required|unique:tags,name,{$tag->id}"
+        ]);
+
+        $result = $tag->update([
+            'name' => $request->name
+        ]);
+        if ($result) {
+            $this->notificationMessage('Data Update Successfully!');
+            return redirect()->route('admin.tag.index');
+        } else {
+            return back();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\tag  $tag
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tag $tag)
+    public function destroy(Tag $tag)
     {
-        //
+        File::delete($tag);
+        $this->notificationMessage('Data Delete Successfully!');
+        return redirect()->route('admin.tag.index');
+
     }
 }

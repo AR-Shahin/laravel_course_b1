@@ -85,7 +85,8 @@ class PostController extends Controller
      */
     public function edit(post $post)
     {
-        //
+        $categories = Category::latest()->get();
+        return view('backend.post.edit', compact(['post', 'categories']));
     }
 
     /**
@@ -95,9 +96,36 @@ class PostController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, post $post)
+    public function update(PostRequest $request, post $post)
     {
-        //
+        $OldImgPath = $post->image;
+
+        if ($request->has('image')) {
+            $file = $request->file('image');
+
+            $post->update([
+                'name' => $request->name,
+                'slug' => $request->name,
+                'category_id' => $request->category_id,
+                'sub_cat_id' => $request->sub_cat_id,
+                'short_des' => $request->short_des,
+                'long_des' => $request->long_des,
+                'author_id' => auth('web')->id(),
+                'image' => File::update($file, $OldImgPath, 'post')
+            ]);
+        } else {
+            $post->update([
+                'name' => $request->name,
+                'slug' => $request->name,
+                'category_id' => $request->category_id,
+                'sub_cat_id' => $request->sub_cat_id,
+                'short_des' => $request->short_des,
+                'long_des' => $request->long_des,
+                'author_id' => auth('web')->id(),
+            ]);
+        }
+        $this->notificationMessage('Data Update Successfully!');
+        return redirect()->route('admin.post.index');
     }
 
     /**
@@ -108,7 +136,9 @@ class PostController extends Controller
      */
     public function destroy(post $post)
     {
-        //
+        File::delete($post);
+        $this->notificationMessage('Data Delete Successfully!');
+        return redirect()->route('admin.post.index');
     }
 
     public function getSubCategoryByCategory($category_id)
@@ -129,4 +159,5 @@ class PostController extends Controller
             ]);
         }
     }
+
 }
