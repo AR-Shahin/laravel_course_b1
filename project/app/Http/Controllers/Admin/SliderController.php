@@ -18,7 +18,7 @@ class SliderController extends Controller
     public function index()
     {
         $sliders = Slider::latest()->get();
-        return view('backend.slider.index', compact('sliders'));
+        return view('Backend.Slider.index', compact('sliders'));
     }
 
     /**
@@ -28,7 +28,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view('backend.slider.create');
+        return view('Backend.Slider.create');
     }
 
     /**
@@ -43,7 +43,7 @@ class SliderController extends Controller
 
         $result = Slider::create([
             'title' => $request->title,
-            'image' => File::upload($file, 'Slider')
+            'image' => File::upload($file, 'slider')
         ]);
 
         if ($result) {
@@ -73,7 +73,7 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider)
     {
-        return view('backend.slider.edit', compact('slider'));
+        return view('Backend.Slider.edit', compact('slider'));
     }
 
     /**
@@ -89,10 +89,10 @@ class SliderController extends Controller
 
         if ($request->has('image')) {
             $file = $request->file('image');
-
+            File::delete($slider);
             $slider->update([
                 'title' => $request->title,
-                'image' => File::update($file, $OldImgPath, 'Slider')
+                'image' => File::upload($file, 'slider')
             ]);
         } else {
             $slider->update([
@@ -111,8 +111,8 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
-       File::delete($slider);
-        
+        File::deleteFile($slider->image);
+        $slider->delete();
         $this->notificationMessage('Data Delete Successfully!');
         return redirect()->route('admin.slider.index');
     }

@@ -18,7 +18,7 @@ class TagController extends Controller
     public function index()
     {
         $tags = Tag::latest()->get();
-        return view('backend.tag.index', compact('tags'));
+        return view('Backend.Tag.index', compact('tags'));
     }
 
     /**
@@ -28,7 +28,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('backend.tag.create');
+        return view('Backend.Tag.create');
     }
 
     /**
@@ -73,7 +73,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        return view('backend.tag.edit', compact('tag'));
+        return view('Backend.Tag.edit', compact('tag'));
     }
 
     /**
@@ -111,6 +111,5 @@ class TagController extends Controller
         File::delete($tag);
         $this->notificationMessage('Data Delete Successfully!');
         return redirect()->route('admin.tag.index');
-
     }
 }

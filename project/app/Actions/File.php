@@ -25,7 +25,6 @@ class File
         }
 
         return "storage/$path/" . $fileName;
-        
     }
 
     public static function delete($modelIns)
@@ -34,8 +33,12 @@ class File
             unlink($modelIns->image);
         }
         $modelIns->delete();
-        
     }
 
-    
+    public static function deleteFile($file)
+    {
+        if (file_exists($file)) {
+            unlink($file);
+        }
+    }
 }

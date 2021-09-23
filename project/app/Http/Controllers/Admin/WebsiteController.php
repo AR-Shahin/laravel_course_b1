@@ -17,7 +17,7 @@ class WebsiteController extends Controller
     public function index()
     {
         $websites = Website::get();
-        return view('backend.website.index', compact('websites'));
+        return view('Backend.website.index', compact('websites'));
     }
 
     /**
@@ -60,7 +60,7 @@ class WebsiteController extends Controller
      */
     public function edit(Website $website)
     {
-        return view('backend.website.edit', compact('website'));
+        return view('Backend.website.edit', compact('website'));
     }
 
     /**
