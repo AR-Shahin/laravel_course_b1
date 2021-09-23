@@ -28,9 +28,10 @@
                     <div class="form-group">
                         <label for="">Category </label>
                         <select name="category_id" id="category_id" class="form-control">
-                            <option value="{{ $post->category->id }}">{{ $post->category->name }}</option>
                             @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" @if ($post->category->id === $category->id)
+                                selected
+                            @endif>{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -39,9 +40,11 @@
                     <div class="form-group">
                         <label for="">Sub Category </label>
                       <select name="sub_cat_id" id="sub_cat_id" class="form-control">
-                        <option value="{{ $post->sub_category->id }}">{{ $post->sub_category->name }}</option>
+
                           @foreach($category->subCategories as $subCategory)
-                          <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>  
+                          <option value="{{ $subCategory->id }}" @if ($subCategory->id === $post->sub_category->id )
+                              selected
+                          @endif>{{ $subCategory->name }}</option>
                           @endforeach
                       </select>
                     </div>
@@ -70,6 +73,18 @@
             <div class="form-gorup">
                 <label for="">Image</label>
                 <input type="file" name="image" id="image" class="form-control">
+            </div>
+            {{-- @php
+                dd($post->tags)
+            @endphp --}}
+            <div class="form-group mt-2">
+                <label for="">Tags :</label>
+                @foreach ($tags as $tag)
+                <span>{{ $tag->name }}</span>
+                <input type="checkbox" name="tags[]" value="{{ $tag->id }}" @if (in_array($tag->id,$postTags))
+checked
+                @endif> |
+                @endforeach
             </div>
             <div class="form-gorup">
                 <button type="submit" class="form-control btn btn-success btn-block mt-5">Update Post</button>

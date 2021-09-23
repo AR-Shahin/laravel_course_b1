@@ -38,7 +38,7 @@
                         <td>
                             <a href="" id="status" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i></a>
                             <a href="" class="btn btn-sm btn-warning"><i class="fa fa-arrow-down"></i></a>
-                            <a href="" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                            <a href="{{ route('admin.post.show',$post->slug) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
                             <a href="{{ route('admin.post.edit', $post->slug) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
 
                            <form action="{{ route('admin.post.destroy', $post->slug) }}" class="d-inline" method="POST">

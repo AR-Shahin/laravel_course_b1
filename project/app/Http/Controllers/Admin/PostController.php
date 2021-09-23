@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Actions\File;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\PostRequest;
-use App\Models\Category;
+use App\Models\Tag;
 use App\Models\Post;
+use App\Actions\File;
+use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Auth;
+use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -32,8 +34,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        $tags = Tag::latest()->get();
         $categories = Category::latest()->get();
-        return view('Backend.Post.create', compact('categories'));
+        return view('Backend.Post.create', compact('categories', 'tags'));
     }
 
     /**
@@ -44,6 +47,7 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
+        //return $request->tags;
         $file = $request->file('image');
 
         $data = [
@@ -59,6 +63,7 @@ class PostController extends Controller
         ];
         $post =  Post::create($data);
         if ($post) {
+            $post->tags()->sync($request->tags);
             $this->notificationMessage();
             return redirect()->route('admin.post.index');
         } else {
@@ -74,7 +79,9 @@ class PostController extends Controller
      */
     public function show(post $post)
     {
-        //
+        return view("Backend.Post.show", [
+            'post' => $post->load('tags', 'category')
+        ]);
     }
 
     /**
@@ -86,7 +93,9 @@ class PostController extends Controller
     public function edit(post $post)
     {
         $categories = Category::latest()->get();
-        return view('backend.post.edit', compact(['post', 'categories']));
+        $tags = Tag::latest()->get();
+        $postTags = $this->getIDByFunction($post->tags);
+        return view('Backend.Post.edit', compact(['post', 'categories', 'tags', 'postTags']));
     }
 
     /**
@@ -124,6 +133,7 @@ class PostController extends Controller
                 'author_id' => auth('web')->id(),
             ]);
         }
+        $post->tags()->sync($request->tags);
         $this->notificationMessage('Data Update Successfully!');
         return redirect()->route('admin.post.index');
     }
@@ -136,11 +146,24 @@ class PostController extends Controller
      */
     public function destroy(post $post)
     {
-        File::delete($post);
+        // return  $tags  = DB::table('post_tag')->where('post_id', $post->id)->get('id');
+        $tags = $this->getIDByFunction($post->tags);
+        File::deleteFile($post->image);
+        $post->tags()->detach($tags);
+        $post->delete();
         $this->notificationMessage('Data Delete Successfully!');
         return redirect()->route('admin.post.index');
     }
 
+    protected function getIDByFunction($items)
+    {
+        $ids = [];
+        foreach ($items as $id) {
+            $ids[] = $id->id;
+        }
+
+        return $ids;
+    }
     public function getSubCategoryByCategory($category_id)
     {
         return SubCategory::whereCategoryId($category_id)->get();
@@ -159,5 +182,4 @@ class PostController extends Controller
             ]);
         }
     }
-
 }

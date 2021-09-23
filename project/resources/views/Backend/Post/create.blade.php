@@ -98,6 +98,13 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
             </div>
+            <div class="form-group mt-2">
+                <label for="">Tags :</label>
+                @foreach ($tags as $tag)
+                <span>{{ $tag->name }}</span>
+                <input type="checkbox" name="tags[]" value="{{ $tag->id }}"> |
+                @endforeach
+            </div>
             <div class="form-gorup">
                 <button type="submit" class="form-control btn btn-success btn-block mt-5">Create Post</button>
             </div>
