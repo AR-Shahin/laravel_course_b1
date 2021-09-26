@@ -21,8 +21,6 @@ class SliderFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
-        ];
+        return [];
     }
 }

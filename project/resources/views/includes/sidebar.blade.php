@@ -88,6 +88,12 @@
             <p>Website Details</p>
           </a>
         </li>
+        <li class="nav-item">
+            <a href="/" class="nav-link" target="_blank">
+              <i class="nav-icon far fa-circle text-warning"></i>
+              <p>Website</p>
+            </a>
+          </li>
           @auth('web')
           <li class="nav-item">
             <form action="{{ route('admin.logout') }}" method="POST">

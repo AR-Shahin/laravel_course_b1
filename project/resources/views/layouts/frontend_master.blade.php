@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>@yield('front_title')</title>
+        <title>Bootstrap Blog - B4 Template by Bootstrap Temple</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="all,follow">
@@ -27,12 +27,14 @@
         <link rel="stylesheet" href="{{ asset('Frontend') }}/css/custom.css">
         <!-- Favicon-->
         <link rel="shortcut icon" href="{{ asset('Frontend') }}/favicon.png">
-        @stack('css')
+
     </head>
     <body>
-        @includeIf('Frontend.inc.navbar')
-        @yield('frontend_app_content')
-        @includeIf('Frontend.inc.footer')
+     @includeIf('Frontend.inc.navbar')
+        <!-- Hero Section-->
+
+        <!-- Page Footer-->
+       @includeIf('Frontend.inc.footer')
         <!-- JavaScript files-->
         <script src="{{ asset('Frontend') }}/vendor/jquery/jquery.min.js"></script>
         <script src="{{ asset('Frontend') }}/vendor/popper.js/umd/popper.min.js"> </script>
@@ -43,6 +45,5 @@
         <script src="{{ asset('Frontend') }}/js/wow.min.js"></script>
         <script src="{{ asset('Frontend') }}/js/front.js"></script>
         <script src="{{ asset('Frontend') }}/js/custom.js"></script>
-        @stack('script')
     </body>
 </html>

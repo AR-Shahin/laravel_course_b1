@@ -30,7 +30,7 @@ class PostFactory extends Factory
             'long_des' => $this->faker->text,
             'status' => true,
             'author_id' => 1,
-            'image' => null
+            'image' => 'storage/post/default.png'
         ];
     }
 }
