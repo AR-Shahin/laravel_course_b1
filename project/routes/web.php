@@ -1,12 +1,16 @@
 <?php
 
+use App\Http\Controllers\Frontend\PostController;
+use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
-    return view('layouts.frontend_app');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/show-post/{slug}', [PostController::class, 'showSinglePost'])->name('single-post');
+
+
 
 Route::get('/admin/dashboard', function () {
     return view('dashboard');

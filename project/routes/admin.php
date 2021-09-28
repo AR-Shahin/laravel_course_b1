@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\WebsiteController;
 
 Route::prefix('admin')->as('admin.')->group(function () {
 
@@ -20,4 +23,8 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::resource('post', PostController::class);
     Route::get('get-sub-category-by-category/{id}', [PostController::class, 'getSubCategoryByCategory'])->name('get-sub-cat-by-cat');
     Route::get('check-post-exists-or-not/{id}', [PostController::class, 'checkPostExistOrNot']);
+
+    Route::resource('tag', TagController::class);
+    Route::resource('slider', SliderController::class);
+    Route::resource('website', WebsiteController::class);
 });

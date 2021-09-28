@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\slider;
+use App\Models\PostTag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SliderFactory extends Factory
+class PostTagFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = slider::class;
+    protected $model = PostTag::class;
 
     /**
      * Define the model's default state.
@@ -21,6 +21,9 @@ class SliderFactory extends Factory
      */
     public function definition()
     {
-        return [];
+        return [
+            'post_id' => rand(1, 15),
+            'tag_id' => rand(1, 4)
+        ];
     }
 }
