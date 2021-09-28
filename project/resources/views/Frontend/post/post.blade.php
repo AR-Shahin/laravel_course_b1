@@ -16,10 +16,10 @@
               </div>
               <h1>{{ $post->name }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
               <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#" class="author d-flex align-items-center flex-wrap">
-                  <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid"></div>
+                  <div class="avatar"><img src="{{ asset($post->author->image) }}" alt="..." class="img-fluid"></div>
                   <div class="title"><span>{{ $post->author->name }}</span></div></a>
                 <div class="d-flex align-items-center flex-wrap">
-                  <div class="date"><i class="icon-clock"></i> 2 months ago</div>
+                  <div class="date"><i class="icon-clock"></i> {{ $post->created_at->diffForHumans() }}</div>
                   <div class="views"><i class="icon-eye"></i> {{ $post->view }}</div>
                   <div class="comments meta-last"><i class="icon-comment"></i>12</div>
                 </div>
@@ -126,34 +126,20 @@
           <header>
             <h3 class="h6">Latest Posts</h3>
           </header>
-          <div class="blog-posts"><a href="#">
+          <div class="blog-posts"><a href="">
+            @foreach($posts as $post)
+            <a href="{{ route('single-post',$post->slug) }}">
               <div class="item d-flex align-items-center">
-                <div class="image"><img src="img/small-thumbnail-1.jpg" alt="..." class="img-fluid"></div>
-                <div class="title"><strong>Alberto Savoia Can Teach You About</strong>
+                <div class="image"><img src="{{ asset($post->image) }}" alt="..." class="img-fluid"></div>
+                <div class="title"><strong>{{ $post->name }}</strong>
                   <div class="d-flex align-items-center">
-                    <div class="views"><i class="icon-eye"></i> 500</div>
+                    <div class="views"><i class="icon-eye"></i> {{ $post->view }}</div>
                     <div class="comments"><i class="icon-comment"></i>12</div>
                   </div>
                 </div>
-              </div></a><a href="#">
-              <div class="item d-flex align-items-center">
-                <div class="image"><img src="img/small-thumbnail-2.jpg" alt="..." class="img-fluid"></div>
-                <div class="title"><strong>Alberto Savoia Can Teach You About</strong>
-                  <div class="d-flex align-items-center">
-                    <div class="views"><i class="icon-eye"></i> 500</div>
-                    <div class="comments"><i class="icon-comment"></i>12</div>
-                  </div>
-                </div>
-              </div></a><a href="#">
-              <div class="item d-flex align-items-center">
-                <div class="image"><img src="img/small-thumbnail-3.jpg" alt="..." class="img-fluid"></div>
-                <div class="title"><strong>Alberto Savoia Can Teach You About</strong>
-                  <div class="d-flex align-items-center">
-                    <div class="views"><i class="icon-eye"></i> 500</div>
-                    <div class="comments"><i class="icon-comment"></i>12</div>
-                  </div>
-                </div>
-              </div></a></div>
+              </div></a><a href="">
+            </a>
+            @endforeach
         </div>
         <!-- Widget [Categories Widget]-->
         <div class="widget categories">

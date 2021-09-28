@@ -17,6 +17,7 @@ class PostController extends Controller
         $data['categories'] = Category::get();
         $data['tags'] = Tag::get();
         $post = $slug->load('author', 'category', 'sub_category', 'tags');
-        return view('Frontend.post.post', compact('post'), $data);
+        $posts = Post::latest()->limit(3)->get();
+        return view('Frontend.post.post', compact('post', 'posts'), $data);
     }
 }
