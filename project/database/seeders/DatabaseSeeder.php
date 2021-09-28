@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         Admin::create([
             'name' => 'admin',
             'email' => 'admin@mail.com',
-            'image' => 'storage/admin/default.jpg',
+            'image' => 'storage/admin/default.png',
             'password' => bcrypt('password')
         ]);
         // \App\Models\Admin::factory(10)->create();

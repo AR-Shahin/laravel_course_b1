@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 class Post extends Model
 {
     use HasFactory;
+    protected $with = ['category', 'sub_category', 'author', 'tags'];
     protected $fillable = ['author_id', 'category_id', 'sub_cat_id', 'name', 'slug', 'status', 'short_des', 'long_des', 'view', 'image'];
 
     public function setSlugAttribute($value)
