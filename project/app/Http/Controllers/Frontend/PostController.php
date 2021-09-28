@@ -6,13 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Website;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
 
+
     public function allPost()
     {
+
         $data = [];
         $data['posts'] = Post::latest()->paginate(6);
         $data['tags'] = Tag::latest()->get();

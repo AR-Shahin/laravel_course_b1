@@ -1,4 +1,5 @@
    <header class="header">
+    {{-- @dd($website->title) --}}
             <!-- Main Navbar-->
             <nav class="navbar navbar-expand-lg fixed-top">
                 <div class="search-area">

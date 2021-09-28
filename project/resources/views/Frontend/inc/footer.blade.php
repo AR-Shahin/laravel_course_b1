@@ -7,8 +7,8 @@
                 </div>
                 <div class="contact-details">
                     <p>53 Broadway, Broklyn, NY 11249</p>
-                    <p>Phone: (020) 123 456 789</p>
-                    <p>Email: <a href="mailto:info@company.com">Info@Company.com</a></p>
+                    <p>Phone: {{ $website->phone }}</p>
+                    <p>Email: <a href="mailto:{{ $website->phone }}">{{ $website->email }}</a></p>
                     <ul class="social-menu">
                         <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
                         <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
