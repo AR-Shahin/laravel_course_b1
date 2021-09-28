@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        @php
+        $website = App\Models\Website::first();
+     @endphp
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>@yield('front_title')</title>
@@ -30,6 +33,7 @@
         @stack('css')
     </head>
     <body>
+{{-- @dd($website->title) --}}
         @includeIf('Frontend.inc.navbar')
         @yield('frontend_app_content')
         @includeIf('Frontend.inc.footer')
