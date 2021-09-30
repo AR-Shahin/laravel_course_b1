@@ -34,9 +34,11 @@
         @stack('css')
     </head>
     <body>
-{{-- @dd($website->title) --}}
+
         @includeIf('Frontend.inc.navbar')
+       <div class="mt-5 ">
         @yield('frontend_app_content')
+       </div>
         @includeIf('Frontend.inc.footer')
         <!-- JavaScript files-->
         <script src="{{ asset('Frontend') }}/vendor/jquery/jquery.min.js"></script>

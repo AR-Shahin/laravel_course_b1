@@ -21,6 +21,7 @@
             </tr>
         </tbody>
     </table>
+   
 </div>
 @endsection
 @push('css')

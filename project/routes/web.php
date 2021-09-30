@@ -20,5 +20,5 @@ Route::get('/admin/dashboard', function () {
 require __DIR__ . '/admin_auth.php';
 
 Route::get('test', function () {
-    return view('Backend.Category.test');
+    return view('Frontend.auth.login');
 });
