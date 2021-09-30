@@ -25,9 +25,9 @@
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $tag->name }}</td>
                         <td>
-                            <a href="{{ route('admin.tag.edit', $tag->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('admin.tag.edit', $tag->slug) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
 
-                           <form action="{{ route('admin.tag.destroy', $tag->id) }}" class="d-inline" method="POST">
+                           <form action="{{ route('admin.tag.destroy', $tag->slug) }}" class="d-inline" method="POST">
                             @csrf
                             @method('DELETE')
                             <button onclick=" return confirm('Are you Sure Delete This Data?')"  class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>

@@ -37,7 +37,7 @@
         </header>
         <ul class="list-inline">
             @foreach ($tags as $tag)
-            <li class="list-inline-item"><a href="{{ route('tags-post',$tag->id) }}" class="tag">#{{ $tag->name }}</a></li>
+            <li class="list-inline-item"><a href="{{ route('tags-post',$tag->slug) }}" class="tag">#{{ $tag->name }}</a></li>
             @endforeach
         </ul>
       </div>
