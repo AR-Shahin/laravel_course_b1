@@ -21,7 +21,7 @@
                     <!-- Navbar Brand -->
                     <div class="navbar-header d-flex align-items-center justify-content-between">
                         @if ($website->logo)
-                        <!-- Navbar Logo --><a href="{{ route('home') }}" class="navbar-brand"><img width="50px" src="{{ asset($website->logo) }}" alt=""></a> 
+                        <!-- Navbar Logo --><a href="{{ route('home') }}" class="navbar-brand"><img width="50px" src="{{ asset($website->logo) }}" alt=""></a>
                         @else
                         <!-- Navbar Brand --><a href="{{ route('home') }}" class="navbar-brand">{{ $website->title }}</a>
                         @endif
@@ -39,7 +39,15 @@
                             </li>
                         </ul>
                         <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
-                        <ul class="langs navbar-text"><a href="#" class="active">Login</a><span>           </span><a href="#">Register</a></ul>
+                        @guest('user')
+                        <ul class="langs navbar-text"><a href="{{ route('login') }}" class="active">Login</a><span> </span><a href="{{ route('register') }}">Register</a></ul>
+                        @endguest
+                        @auth('user')
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button class="btn btn-info btn-sm ml-3" onclick=" return confirm('Are you sure to logout in your Dashboard!')">Logout</button>
+                        </form>
+                        @endauth
                     </div>
                 </div>
             </nav>

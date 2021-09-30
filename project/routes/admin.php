@@ -1,12 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\SliderController;
-use App\Http\Controllers\Admin\SubCategoryController;
-use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\Admin\WebsiteController;
+use App\Http\Controllers\Admin\{
+    PostController,
+    CategoryController,
+    SliderController,
+    SubCategoryController,
+    TagController,
+    WebsiteController
+};
+// use App\Http\Controllers\Admin\;
+// use App\Http\Controllers\Admin\;
+// use App\Http\Controllers\Admin\;
+// use App\Http\Controllers\Admin\;
+// use App\Http\Controllers\Admin\;
 
 Route::prefix('admin')->as('admin.')->group(function () {
 

@@ -49,6 +49,7 @@
         <script src="{{ asset('Frontend') }}/js/owl.carousel.min.js"></script>
         <script src="{{ asset('Frontend') }}/js/wow.min.js"></script>
         <script src="{{ asset('Frontend') }}/js/front.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         <script src="{{ asset('Frontend') }}/js/custom.js"></script>
         @stack('script')
     </body>
