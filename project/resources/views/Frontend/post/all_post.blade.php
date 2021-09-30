@@ -60,12 +60,8 @@
             </div>
           </form>
         </div>
-        {{-- @php
-            print_r($latest_post);
-
-        @endphp --}}
         <!-- Widget [Latest Posts Widget]        -->
-        <x-partial.blog-sidebar :tags="$tags" :categories="$categories" :let="$latest_post"/>
+        <x-partial.blog-sidebar :tags="$tags" :categories="$categories" :latestPosts="$latestPosts" />
       </aside>
     </div>
   </div>

@@ -19,10 +19,11 @@ class PostController extends Controller
         $data = [];
         $data['posts'] = Post::latest()->paginate(6);
         $data['tags'] = Tag::latest()->get();
-        //  $data['latest_posts'] = Post::latest()->limit(3)->get();
+        $data['latestPosts'] = Post::latest()->limit(3)->get();
         $data['categories'] = Category::latest()->get();
-        $latest_post =  Post::latest()->limit(3)->get();
-        return view('Frontend.post.all_post', $data, compact('latest_post'));
+        // $latest_post =  Post::latest()->limit(3)->get();
+        return view('Frontend.post.all_post', $data);
+
     }
     public function showSinglePost(Post $slug)
     {
@@ -31,7 +32,7 @@ class PostController extends Controller
         $data['categories'] = Category::get();
         $data['tags'] = Tag::get();
         $post = $slug->load('author', 'category', 'sub_category', 'tags');
-        $posts = Post::latest()->limit(3)->get();
+        // $posts = Post::latest()->limit(3)->get();
         return view('Frontend.post.single_post', compact('post', 'posts'), $data);
     }
 
