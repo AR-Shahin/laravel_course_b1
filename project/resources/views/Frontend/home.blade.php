@@ -5,7 +5,7 @@
 @section('frontend_app_content')
 <div class="owl-carousel hero_slider">
     @foreach ($sliders as $slider)
-    <section style="background: url({{ asset($slider->image) }}); background-size: cover; background-position: center center" class="hero wow animate__animated animate__fadeInTopLeft">
+    <section style="background: url({{ asset($slider->image) }}); background-size: cover; background-position: center center; height:80vh;" class="hero wow animate__animated animate__fadeInTopLeft">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7">
@@ -42,7 +42,7 @@
                         </header>
                         <p>{{ $post->short_des }}</p>
                         <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
-                            <div class="avatar"><img src="{{ asset('Frontend') }}/img/avatar-1.jpg" alt="..." class="img-fluid"></div>
+                            <div class="avatar"><img src="{{ asset($post->author->image) }}" alt="..." class="img-fluid"></div>
                             <div class="title"><span>{{ $post->author->name }}</span></div></a>
                             <div class="date"><i class="icon-clock"></i> {{ $post->created_at->diffForHumans() }}</div>
                             <div class="comments"><i class="icon-comment"></i>12</div>

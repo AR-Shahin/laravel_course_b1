@@ -4,6 +4,7 @@
     <head>
         @php
         $website = App\Models\Website::first();
+        $latestPosts = App\Models\Post::latest()->limit(3)->get();
      @endphp
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,9 +34,11 @@
         @stack('css')
     </head>
     <body>
-{{-- @dd($website->title) --}}
+
         @includeIf('Frontend.inc.navbar')
+       <div class="mt-5 ">
         @yield('frontend_app_content')
+       </div>
         @includeIf('Frontend.inc.footer')
         <!-- JavaScript files-->
         <script src="{{ asset('Frontend') }}/vendor/jquery/jquery.min.js"></script>

@@ -6,15 +6,15 @@
                     <h6 class="text-white">Bootstrap Blog</h6>
                 </div>
                 <div class="contact-details">
-                    <p>53 Broadway, Broklyn, NY 11249</p>
+                    <p>{{ $website->address }}</p>
                     <p>Phone: {{ $website->phone }}</p>
-                    <p>Email: <a href="mailto:{{ $website->phone }}">{{ $website->email }}</a></p>
+                    <p>Email: <a href="mailto:{{ $website->email }}">{{ $website->email }}</a></p>
                     <ul class="social-menu">
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-behance"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        <li class="list-inline-item"><a target="_blanck" href="{{ $website->facebook }}"><i class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a target="_blanck" href="{{ $website->twitter }}"><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a target="_blanck" href="{{ $website->instagram }}"><i class="fa fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a target="_blanck" href="{{ $website->behance }}"><i class="fa fa-behance"></i></a></li>
+                        <li class="list-inline-item"><a target="_blanck" href="#"><i class="fa fa-pinterest"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -35,33 +35,23 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="latest-posts"><a href="#">
-                    <div class="post d-flex align-items-center">
-                        <div class="image"><img src="img/small-thumbnail-1.jpg" alt="..." class="img-fluid"></div>
-                        <div class="title"><strong>Hotels for all budgets</strong><span class="date last-meta">October 26, 2016</span></div>
-                    </div></a><a href="#">
-                    <div class="post d-flex align-items-center">
-                        <div class="image"><img src="img/small-thumbnail-2.jpg" alt="..." class="img-fluid"></div>
-                        <div class="title"><strong>Great street atrs in London</strong><span class="date last-meta">October 26, 2016</span></div>
-                    </div></a><a href="#">
-                    <div class="post d-flex align-items-center">
-                        <div class="image"><img src="img/small-thumbnail-3.jpg" alt="..." class="img-fluid"></div>
-                        <div class="title"><strong>Best coffee shops in Sydney</strong><span class="date last-meta">October 26, 2016</span></div>
-                    </div></a></div>
+                <div class="latest-posts">
+                    @foreach($latestPosts as $post)
+                        <a href="{{ route('single-post', $post->slug) }}" class="my-3 d-block">
+                            <div class="post d-flex align-items-center">
+                                <div class="image"><img src="{{ asset($post->image) }}" alt="{{ $post->name }}" class="img-fluid"></div>
+                                <div class="title"><strong>{{ $post->name }}</strong><span class="date last-meta">{{ $post->created_at->format('M d , Y') }}</span></div>
+                            </div>  
+                        </a>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
     <div class="copyrights">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <p>&copy; 2017. All rights reserved. Your great site.</p>
-                </div>
-                <div class="col-md-6 text-right">
-                    <p>Template By <a href="https://bootstrapious.com/p/bootstrap-carousel" class="text-white">Bootstrapious</a>
-                        <!-- Please do not remove the backlink to Bootstrap Temple unless you purchase an attribution-free license @ Bootstrap Temple or support us at http://bootstrapious.com/donate. It is part of the license conditions. Thanks for understanding :)                         -->
-                    </p>
-                </div>
+                    <p class="d-inline m-auto">&copy; {{ $website->footer_1 }}</p>
             </div>
         </div>
     </div>

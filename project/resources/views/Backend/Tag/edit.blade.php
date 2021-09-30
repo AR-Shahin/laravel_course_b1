@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="card-body">
-        <form action="{{ route('admin.tag.update', $tag->id) }}" method="POST">
+        <form action="{{ route('admin.tag.update', $tag->slug) }}" method="POST">
             @csrf
             @method('put')
             <div class="form-gorup">

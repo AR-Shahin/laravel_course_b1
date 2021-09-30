@@ -13,13 +13,13 @@ class blogSidebar extends Component
      */
     public $categories;
     public $tags;
-    public $let;
-    public function __construct($tags, $categories, $let)
+    public $latestPosts;
+    public function __construct($tags, $categories, $latestPosts)
     {
         $this->tags = $tags;
         $this->categories = $categories;
-        // $this->let = $let;
-        // info($this->let);
+        // $this->latest_posts = $latest_posts;
+        $this->latestPosts = $latestPosts;
     }
 
     /**

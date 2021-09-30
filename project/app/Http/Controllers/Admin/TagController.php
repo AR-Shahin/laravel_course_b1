@@ -44,7 +44,8 @@ class TagController extends Controller
         ]);
 
         $tag = Tag::create([
-            'name' => $request->name
+            'name' => $request->name,
+            'slug' => $request->name
         ]);
         if ($tag) {
             $this->notificationMessage();
@@ -90,7 +91,8 @@ class TagController extends Controller
         ]);
 
         $result = $tag->update([
-            'name' => $request->name
+            'name' => $request->name,
+            'slug' => $request->name,
         ]);
         if ($result) {
             $this->notificationMessage('Data Update Successfully!');

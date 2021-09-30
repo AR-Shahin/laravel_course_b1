@@ -7,20 +7,19 @@
           <h3 class="h6">Latest Posts</h3>
         </header>
         <div class="blog-posts">
-            {{-- @foreach ($latest_posts as $p)
-            <a href="{{ route('single-post',$p->slug) }}">
-                <div class="item d-flex align-items-center">
-                  <div class="image"><img src="{{ asset($p->image) }}" alt="..." class="img-fluid"></div>
-                  <div class="title"><strong>{{ $p->name }}</strong>
-                    <div class="d-flex align-items-center">
-                      <div class="views"><i class="icon-eye"></i> {{ $p->view }}</div>
-                      <div class="comments"><i class="icon-comment"></i>12</div>
-                    </div>
+          @foreach ($latestPosts as $post)
+          <a href="{{ route('single-post',$post->slug) }}">
+              <div class="item d-flex align-items-center">
+                <div class="image"><img src="{{ asset($post->image) }}" alt="{{ $post->name }}" class="img-fluid"></div>
+                <div class="title"><strong>{{ $post->name }}</strong>
+                  <div class="d-flex align-items-center">
+                    <div class="views"><i class="icon-eye"></i> {{ $post->view }}</div>
+                    <div class="comments"><i class="icon-comment"></i>12</div>
                   </div>
-                </div></a>
-            @endforeach --}}
-
-        </div>
+                </div>
+              </div></a>
+          @endforeach
+      </div>
       </div>
       <!-- Widget [Categories Widget]-->
       <div class="widget categories">
@@ -38,7 +37,7 @@
         </header>
         <ul class="list-inline">
             @foreach ($tags as $tag)
-            <li class="list-inline-item"><a href="{{ route('tags-post',$tag->id) }}" class="tag">#{{ $tag->name }}</a></li>
+            <li class="list-inline-item"><a href="{{ route('tags-post',$tag->slug) }}" class="tag">#{{ $tag->name }}</a></li>
             @endforeach
         </ul>
       </div>
