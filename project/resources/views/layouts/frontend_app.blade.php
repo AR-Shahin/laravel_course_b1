@@ -4,6 +4,7 @@
     <head>
         @php
         $website = App\Models\Website::first();
+        $latestPosts = App\Models\Post::latest()->limit(3)->get();
      @endphp
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
