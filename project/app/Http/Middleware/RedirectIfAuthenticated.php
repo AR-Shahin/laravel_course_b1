@@ -23,7 +23,11 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                if ('user' === $guard) {
+                    return redirect(RouteServiceProvider::USER_HOME);
+                } elseif ('web' === $guard) {
+                    return redirect(RouteServiceProvider::HOME);
+                }
             }
         }
 
