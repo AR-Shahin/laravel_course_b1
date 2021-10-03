@@ -25,3 +25,7 @@ require __DIR__ . '/user_auth.php';
 Route::get('test', function () {
     return view('layouts.frontend_master');
 });
+
+# Comment
+
+Route::post('post-comments/{post}', [PostController::class, 'storePostComment'])->name('post.comment')->middleware(['auth:user']);
