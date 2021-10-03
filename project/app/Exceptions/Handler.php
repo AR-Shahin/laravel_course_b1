@@ -2,8 +2,9 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -37,5 +38,24 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if (request()->expectsJson()) {
+            return Response()->json(['error' => 'UnAuthorized'], 401); //exeption for api
+        }
+
+        $guard = data_get($exception->guards(), 0);
+        switch ($guard) {
+            case 'user':
+                $login = 'login';
+                break;
+            default:
+                $login = 'admin.login';
+                break;
+        }
+
+        return redirect()->guest(route($login));
     }
 }
