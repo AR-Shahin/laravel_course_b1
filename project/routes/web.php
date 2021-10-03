@@ -1,9 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\PostController as AdminPostController;
-use App\Http\Controllers\Frontend\PostController;
-use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\{
+    PostController,
+    HomeController,
+    UserController
+};
+
 
 
 
@@ -19,6 +22,13 @@ Route::get('/admin/dashboard', function () {
 
 require __DIR__ . '/admin_auth.php';
 
+require __DIR__ . '/user_auth.php';
 Route::get('test', function () {
-    return view('Frontend.auth.login');
+    return view('layouts.frontend_master');
 });
+
+# Comment
+
+Route::post('post-comments/{post}', [PostController::class, 'storePostComment'])->name('post.comment')->middleware(['auth:user']);
+
+Route::get('user-comments', [UserController::class, 'userPostComments'])->name('user-all-comments');

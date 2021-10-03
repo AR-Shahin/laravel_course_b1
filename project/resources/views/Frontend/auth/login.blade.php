@@ -6,10 +6,11 @@
         <div class="col-md-4 ">
             <h3 class="text-center text-info">Login</h3>
             <hr>
-            <form action="" class="border p-3">
+            <form action="{{ route('login') }}" class="border p-3" method="post">
+                @csrf
                 <div class="form-group">
                     <label for=""><b>Email : </b></label>
-                    <input type="email" class="form-control" name="email" placeholder="Email">
+                    <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
                     @error('email')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -28,7 +29,7 @@
                     <a href="" class="btn btn-info btn-block rounded"> <i class="fa fa-google"></i> Login with Google</a>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <a href="" class=" btn-link">Register</a>
+                    <a href="{{ route('register') }}" class=" btn-link">Register</a>
                     <a href="" class=" btn-link">Forgot Password?</a>
                 </div>
             </form>
