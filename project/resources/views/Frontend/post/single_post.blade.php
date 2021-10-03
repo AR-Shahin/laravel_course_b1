@@ -47,56 +47,37 @@
                   <div class="icon next"><i class="fa fa-angle-right">   </i></div></a></div>
               <div class="post-comments">
                 <header>
-                  <h3 class="h6">Post Comments<span class="no-of-comments">(3)</span></h3>
+                  <h3 class="h6">Post Comments<span class="no-of-comments">({{ $post->comments->count() }})</span></h3>
                 </header>
+                @foreach ($post->comments as $comment)
                 <div class="comment">
                   <div class="comment-header d-flex justify-content-between">
                     <div class="user d-flex align-items-center">
-                      <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="title"><strong>Jabi Hernandiz</strong><span class="date">May 2016</span></div>
+                      <div class="image"><img src="{{ asset($comment->user->image ) }}" alt="..." class="img-fluid rounded-circle"></div>
+                      <div class="title"><strong>{{ $comment->user->name }}</strong><span class="date">{{ $comment->created_at->diffForHumans() }}</span></div>
                     </div>
                   </div>
                   <div class="comment-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                    <p>{{ $comment->comments }}</p>
                   </div>
                 </div>
-                <div class="comment">
-                  <div class="comment-header d-flex justify-content-between">
-                    <div class="user d-flex align-items-center">
-                      <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="title"><strong>Nikolas</strong><span class="date">May 2016</span></div>
-                    </div>
-                  </div>
-                  <div class="comment-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                  </div>
-                </div>
-                <div class="comment">
-                  <div class="comment-header d-flex justify-content-between">
-                    <div class="user d-flex align-items-center">
-                      <div class="image"><img src="img/user.svg" alt="..." class="img-fluid rounded-circle"></div>
-                      <div class="title"><strong>John Doe</strong><span class="date">May 2016</span></div>
-                    </div>
-                  </div>
-                  <div class="comment-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                  </div>
-                </div>
+                @endforeach
               </div>
               <div class="add-comment">
                 <header>
                   <h3 class="h6">Leave a reply</h3>
                 </header>
-                <form action="#" class="commenting-form">
+                <form action="{{route('post.comment',$post->slug)}}" class="commenting-form" method="POST">
+                    @csrf
                   <div class="row">
                     <div class="form-group col-md-6">
-                      <input type="text" name="username" id="username" placeholder="Name" class="form-control">
+                      <input type="text" name="name" id="username" placeholder="Name" class="form-control" value="{{ auth('user')->user() ? auth('user')->user()->name : old('name') }}">
                     </div>
                     <div class="form-group col-md-6">
-                      <input type="email" name="username" id="useremail" placeholder="Email Address (will not be published)" class="form-control">
+                      <input type="email" name="email" id="useremail" placeholder="Email Address (will not be published)" class="form-control" value="{{ auth('user')->user() ? auth('user')->user()->email : old('email') }}">
                     </div>
                     <div class="form-group col-md-12">
-                      <textarea name="usercomment" id="usercomment" placeholder="Type your comment" class="form-control"></textarea>
+                      <textarea name="comment" id="usercomment" placeholder="Type your comment" class="form-control"></textarea>
                     </div>
                     <div class="form-group col-md-12">
                       <button type="submit" class="btn btn-secondary">Submit Comment</button>

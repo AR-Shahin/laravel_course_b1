@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class Post extends Model
 {
     use HasFactory;
-    protected $with = ['category', 'sub_category', 'author', 'tags'];
+    protected $with = ['category', 'sub_category', 'author', 'tags', 'comments'];
     protected $fillable = ['author_id', 'category_id', 'sub_cat_id', 'name', 'slug', 'status', 'short_des', 'long_des', 'view', 'image'];
 
     public function setSlugAttribute($value)
@@ -38,5 +38,10 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(PostComment::class, 'post_id');
     }
 }

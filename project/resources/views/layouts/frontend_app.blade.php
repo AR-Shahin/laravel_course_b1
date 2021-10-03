@@ -30,6 +30,7 @@
         <!-- Custom stylesheet - for your changes-->
         <link rel="stylesheet" href="{{ asset('Frontend') }}/css/custom.css">
         <!-- Favicon-->
+        <link rel="stylesheet" href="{{ asset('plugins/toaster.css') }}">
         <link rel="shortcut icon" href="{{ asset('Frontend') }}/favicon.png">
         @stack('css')
     </head>
@@ -50,6 +51,16 @@
         <script src="{{ asset('Frontend') }}/js/wow.min.js"></script>
         <script src="{{ asset('Frontend') }}/js/front.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"> </script>
+        <script>
+            @if (Session::has('success'))
+            toastr.success("{{ Session::get('success') }}", 'Success!')
+            @elseif(Session::has('warning'))
+                toastr.warning("{{ Session::get('warning') }}", 'Warning!')
+            @elseif(Session::has('error'))
+                toastr.error("{{ Session::get('error') }}", 'Error!')
+            @endif
+        </script>
         <script src="{{ asset('Frontend') }}/js/custom.js"></script>
         @stack('script')
     </body>
