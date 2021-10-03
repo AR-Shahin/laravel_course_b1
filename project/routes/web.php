@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\{
     PostController,
-    HomeController
+    HomeController,
+    UserController
 };
 
 
@@ -29,3 +30,5 @@ Route::get('test', function () {
 # Comment
 
 Route::post('post-comments/{post}', [PostController::class, 'storePostComment'])->name('post.comment')->middleware(['auth:user']);
+
+Route::get('user-comments', [UserController::class, 'userPostComments'])->name('user-all-comments');

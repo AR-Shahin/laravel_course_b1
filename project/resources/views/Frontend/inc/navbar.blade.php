@@ -43,6 +43,7 @@
                         <ul class="langs navbar-text"><a href="{{ route('login') }}" class="active">Login</a><span> </span><a href="{{ route('register') }}">Register</a></ul>
                         @endguest
                         @auth('user')
+                        <a href="{{ route('dashboard') }}" class="ml-2 btn btn-sm btn-success">Dashboard</a>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button class="btn btn-info btn-sm ml-3" onclick=" return confirm('Are you sure to logout in your Dashboard!')">Logout</button>
