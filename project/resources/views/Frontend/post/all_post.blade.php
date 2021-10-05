@@ -59,10 +59,15 @@
           </header>
           <form action="#" class="search-form">
             <div class="form-group">
-              <input type="search" placeholder="What are you looking for?">
+              <input type="search" placeholder="What are you looking for?" id="searchInput">
               <button type="submit" class="submit"><i class="icon-search"></i></button>
             </div>
           </form>
+          <div id="searchData">
+              <ul>
+                  {{-- <li><a href="{{ route('single-post',post.slug) }}">Lorm5 </a></li> --}}
+              </ul>
+          </div>
         </div>
         <!-- Widget [Latest Posts Widget]        -->
         <x-partial.blog-sidebar :tags="$tags" :categories="$categories" :latestPosts="$latestPosts" />
@@ -70,3 +75,30 @@
     </div>
   </div>
 @stop
+
+@push('script')
+    <script>
+        let searchInput = select('#searchInput');
+        searchInput.addEventListener('keyup',async function(e) {
+            let query = e.target.value;
+            let url = `${window.location.origin}/search-post/${query}`;
+            if(searchInput.value){
+                const {data} = await axios.get(url)
+                showPostData(data)
+            }
+        })
+        const showPostData = (posts) => {
+            let searchData = select('#searchData > ul');
+            let li ;
+            if(Object.keys(posts).length === 0) {
+                li = `<li style="list-style:none;text-align:center;background:#ccc" class="p-2 text-danger">No Post Found!!</li>`;
+            }else{
+            li = posts.map(post => {
+                    return `<li><a href="${window.location.origin}/single-post/${post.slug}">${post.name} </a> | ${post.author.name}</li>`;
+                });
+                li = li.join(" ");
+            }
+            searchData.innerHTML = li
+        }
+    </script>
+@endpush
