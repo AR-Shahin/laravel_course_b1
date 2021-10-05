@@ -26,7 +26,10 @@
                     <button type="submit" class="btn btn-success btn-block rounded">Login</button>
                 </div>
                 <div class="form-group">
-                    <a href="" class="btn btn-info btn-block rounded"> <i class="fa fa-google"></i> Login with Google</a>
+                    <a href="{{ route('social.login','google') }}" class="btn btn-info btn-block rounded"> <i class="fa fa-google"></i> Login with Google</a>
+                </div>
+                <div class="form-group">
+                    <a href="{{ route('social.login','github') }}" class="btn btn-primary btn-block rounded"> <i class="fa fa-github"></i> Login with gitHub</a>
                 </div>
                 <div class="d-flex justify-content-between">
                     <a href="{{ route('register') }}" class=" btn-link">Register</a>
