@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+
 use App\Mail\SocialNewUserMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
