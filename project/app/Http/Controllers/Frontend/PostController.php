@@ -16,7 +16,6 @@ class PostController extends Controller
 
     public function allPost()
     {
-
         $data = [];
         $data['posts'] = Post::latest()->paginate(6);
         $data['tags'] = Tag::latest()->get();

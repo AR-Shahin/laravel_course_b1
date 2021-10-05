@@ -34,9 +34,13 @@
                 </div>
               </div>
             @endforeach
+
           </div>
-          {{-- <!-- Pagination -->
-          <nav aria-label="Page navigation example">
+          <div class="text-center" style="width: 50%;margin: 0 auto">
+            {{ $posts->links('vendor.pagination.custom') }}
+          </div>
+          <!-- Pagination -->
+          {{-- <nav aria-label="Page navigation example">
             <ul class="pagination pagination-template d-flex justify-content-center">
               <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
               <li class="page-item"><a href="#" class="page-link active">1</a></li>
