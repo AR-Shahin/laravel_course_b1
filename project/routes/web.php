@@ -10,6 +10,7 @@ use App\Http\Controllers\Frontend\{
 };
 use App\Mail\SocialNewUserMail;
 use App\Models\Post;
+use App\Models\Subscriber;
 use App\Models\User;
 
 
@@ -54,3 +55,13 @@ Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'callback
 
 
 Route::get('search-post/{query}', [PostController::class, 'dynamicSearch'])->name('dynamic-search');
+
+Route::post('subscriber', function (Request $request) {
+
+    $request->validate([
+        'email' => ['required', 'unique:subscribers,email']
+    ]);
+    Subscriber::create([
+        'email' => $request->email
+    ]);
+});
