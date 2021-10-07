@@ -1,14 +1,22 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\{
     PostController,
     HomeController,
+    SocialLoginController,
     UserController
 };
+use App\Mail\SocialNewUserMail;
+use App\Models\Post;
+use App\Models\User;
 
 
-
+// Route::get('/mail', function () {
+//     $user = User::first();
+//     return new SocialNewUserMail($user);
+// });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -32,3 +40,14 @@ Route::get('test', function () {
 Route::post('post-comments/{post}', [PostController::class, 'storePostComment'])->name('post.comment')->middleware(['auth:user']);
 
 Route::get('user-comments', [UserController::class, 'userPostComments'])->name('user-all-comments');
+
+
+# Social Login
+Route::get('/auth/redirect/{provider}', [SocialLoginController::class, 'login'])->name(('social.login'));
+Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'callback'])->name('social.callback');
+
+
+Route::get('search-post/{query}', function ($query) {
+
+    return Post::withOnly('author')->where('name', 'like', "%$query%")->get(['name', 'slug', 'author_id']);
+});
