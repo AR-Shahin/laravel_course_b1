@@ -99,7 +99,7 @@
             </div>
             <div class="col-md-8">
                 <div class="form-holder">
-                    <form action="#">
+                    <form action="" id="subscribeForm">
                         <div class="form-group">
                             <input type="email" name="email" id="email" placeholder="Type your email address">
                             <button type="submit" class="submit">Subscribe</button>
@@ -133,3 +133,30 @@
 </section>
 
 @stop
+
+@push('script')
+    <script>
+        let subscribeForm = select('#subscribeForm');
+        let email = select('#email');
+
+        subscribeForm.addEventListener('submit',async (e)=>{
+            e.preventDefault();
+            if(email.value){
+                try{
+                    const response = await axios.post(`${base_url}/subscriber`,{
+                        email : email.value
+                    })
+                    alert('Thanks For Subscribe our blog!!');
+                    email.value = ''
+                }catch(err){
+                    if(err.response.data.errors.email){
+                        alert(err.response.data.errors.email[0])
+                        // Swal.fire(err.response.data.errors.email[0])
+                    }
+                }
+            }else{
+                alert("Enter Your Email");
+            }
+        })
+    </script>
+@endpush
