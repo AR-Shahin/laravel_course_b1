@@ -82,4 +82,10 @@ class PostController extends Controller
             return true;
         }
     }
+
+
+    public function dynamicSearch($query)
+    {
+        return Post::withOnly('author')->where('name', 'like', "%$query%")->get(['name', 'slug', 'author_id']);
+    }
 }

@@ -47,7 +47,10 @@ Route::get('/auth/redirect/{provider}', [SocialLoginController::class, 'login'])
 Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'callback'])->name('social.callback');
 
 
-Route::get('search-post/{query}', function ($query) {
+// Route::get('search-post/{query}', function ($query) {
 
-    return Post::withOnly('author')->where('name', 'like', "%$query%")->get(['name', 'slug', 'author_id']);
-});
+//     return Post::withOnly('author')->where('name', 'like', "%$query%")->get(['name', 'slug', 'author_id']);
+// });
+
+
+Route::get('search-post/{query}', [PostController::class, 'dynamicSearch'])->name('dynamic-search');

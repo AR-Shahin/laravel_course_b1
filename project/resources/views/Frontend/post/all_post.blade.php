@@ -55,7 +55,7 @@
         <!-- Widget [Search Bar Widget]-->
         <div class="widget search">
           <header>
-            <h3 class="h6">Search the blog</h3>
+            <h3 class="h6">Search the blog <span class="badge badge-success" id="postCount"></span></h3>
           </header>
           <form action="#" class="search-form">
             <div class="form-group">
@@ -63,9 +63,10 @@
               <button type="submit" class="submit"><i class="icon-search"></i></button>
             </div>
           </form>
+          <img src="{{ asset('loader.png') }}" alt="" id="loader">
           <div id="searchData">
               <ul>
-                  {{-- <li><a href="{{ route('single-post',post.slug) }}">Lorm5 </a></li> --}}
+                  {{-- <li><a href="">Lorm5 </a></li> --}}
               </ul>
           </div>
         </div>
@@ -77,7 +78,7 @@
 @stop
 
 @push('script')
-    <script>
+    {{-- <script>
         let searchInput = select('#searchInput');
         searchInput.addEventListener('keyup',async function(e) {
             let query = e.target.value;
@@ -99,6 +100,55 @@
                 li = li.join(" ");
             }
             searchData.innerHTML = li
+        }
+    </script> --}}
+
+    <script>
+        let searchInput = select('#searchInput');
+        let loader = select('#loader');
+        loader.style.display = 'none';
+        searchInput.addEventListener('keyup',async function(e){
+            let query = e.target.value;
+            let url = `${window.location.origin}/search-post/${query}`;
+
+            if(searchInput.value){
+                // axios.get(url)
+                // .then(res => {
+                //     log(res)
+                // }).catch(err => {
+                //     console.log(res);
+                // })
+
+                try{
+                    loader.style.display = 'block';
+                    // let response = await axios.get(url);
+                    let {data:posts} = await axios.get(url);
+                    displayPost(posts);
+                }catch(err){
+                    loader.style.display = 'none';
+                    log(err)
+                }finally{
+                    loader.style.display = 'none';
+                }
+            }
+        });
+
+        const displayPost = (posts) => {
+            let postCount = select('#postCount');
+            postCount.innerHTML = Object.keys(posts).length;
+            let searchData = select('#searchData > ul');
+            let li = null ;
+            if(Object.keys(posts).length === 0){
+                li = `<li style="list-style:none;text-align:center;background:#ccc" class="p-2 text-danger">No Post Found!!</li>`;
+            }else{
+                li = posts.map(post => {
+                    return `<li><a href="${base_url}/single-post/${post.slug}">${post.name} | ${post.author.name}</a></li>`;
+                });
+                li = li.join(" ")
+            }
+
+
+            searchData.innerHTML = li;
         }
     </script>
 @endpush
