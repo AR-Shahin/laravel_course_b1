@@ -9,6 +9,10 @@ use App\Http\Controllers\Admin\{
     TagController,
     WebsiteController
 };
+use App\Mail\DemoMail;
+use App\Models\Subscriber;
+use Illuminate\Support\Facades\Mail;
+
 // use App\Http\Controllers\Admin\;
 // use App\Http\Controllers\Admin\;
 // use App\Http\Controllers\Admin\;
@@ -34,4 +38,15 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::resource('tag', TagController::class);
     Route::resource('slider', SliderController::class);
     Route::resource('website', WebsiteController::class);
+
+    Route::get('test', function () {
+        // Mail::to('default@mail.com')->send(new DemoMail);
+        $subscribers = Subscriber::latest()->get('email');
+
+        foreach ($subscribers as $subscriber) {
+
+            echo "$subscriber->email <br>";
+            // Mail::to($subscriber)->send(new SendNewPostToSubscriberMail($post));
+        }
+    });
 });
