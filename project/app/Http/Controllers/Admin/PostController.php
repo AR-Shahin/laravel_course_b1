@@ -185,4 +185,21 @@ class PostController extends Controller
             ]);
         }
     }
+
+    function postInactive(Post $post)
+    {
+        //return $post;
+        $post->status = false;
+        $post->save();
+        $this->notificationMessage('Post Inactive Successfully!');
+        return back();
+    }
+    function postActive(Post $post)
+    {
+        //return $post;
+        $post->status = true;
+        $post->save();
+        $this->notificationMessage('Post Active Successfully!');
+        return back();
+    }
 }
