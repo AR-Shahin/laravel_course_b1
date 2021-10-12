@@ -36,10 +36,23 @@
                         <td>{{ $post->view }}</td>
                         <td>{{ $post->status == 1 ? 'Active' : 'Inactive' }}</td>
                         <td>
-                            <a href="" id="status" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i></a>
-                            <a href="" class="btn btn-sm btn-warning"><i class="fa fa-arrow-down"></i></a>
+                            @if ($post->status == 1)
+                            <form action="{{ route('admin.post.inactive',$post->slug) }}" class="d-inline" method="POST">
+                                @csrf
+                                <button href="" class="btn btn-sm btn-warning"><i class="fa fa-arrow-down"></i></button>
+                            </form>
+                            @endif
+                            @if ($post->status == 0)
+                            <form action="{{ route('admin.post.active',$post->slug) }}" class="d-inline" method="POST">
+                                @csrf
+                                <button href="" id="status" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i></button>
+                            </form>
+                            @endif
+
                             <a href="{{ route('admin.post.show',$post->slug) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                            @can('update', $post)
                             <a href="{{ route('admin.post.edit', $post->slug) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                            @endcan
 
                            <form action="{{ route('admin.post.destroy', $post->slug) }}" class="d-inline" method="POST">
                             @csrf

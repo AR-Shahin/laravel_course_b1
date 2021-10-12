@@ -12,6 +12,7 @@ use Illuminate\Support\Auth;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Services\Post\PostSubscriberMail;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -64,6 +65,8 @@ class PostController extends Controller
         $post =  Post::create($data);
         if ($post) {
             $post->tags()->sync($request->tags);
+            // Send mail to subscribers
+            PostSubscriberMail::handle($post);
             $this->notificationMessage();
             return redirect()->route('admin.post.index');
         } else {
@@ -92,6 +95,7 @@ class PostController extends Controller
      */
     public function edit(post $post)
     {
+        $this->authorize('update', $post);
         $categories = Category::latest()->get();
         $tags = Tag::latest()->get();
         $postTags = $this->getIDByFunction($post->tags);
@@ -181,5 +185,22 @@ class PostController extends Controller
                 'flag' => 'NOT_EXIST'
             ]);
         }
+    }
+
+    function postInactive(Post $post)
+    {
+        //return $post;
+        $post->status = false;
+        $post->save();
+        $this->notificationMessage('Post Inactive Successfully!');
+        return back();
+    }
+    function postActive(Post $post)
+    {
+        //return $post;
+        $post->status = true;
+        $post->save();
+        $this->notificationMessage('Post Active Successfully!');
+        return back();
     }
 }

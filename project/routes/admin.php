@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
+    AdminController,
     PostController,
     CategoryController,
     SliderController,
@@ -9,6 +10,11 @@ use App\Http\Controllers\Admin\{
     TagController,
     WebsiteController
 };
+use App\Mail\DemoMail;
+use App\Models\Admin;
+use App\Models\Subscriber;
+use Illuminate\Support\Facades\Mail;
+
 // use App\Http\Controllers\Admin\;
 // use App\Http\Controllers\Admin\;
 // use App\Http\Controllers\Admin\;
@@ -30,8 +36,36 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::resource('post', PostController::class);
     Route::get('get-sub-category-by-category/{id}', [PostController::class, 'getSubCategoryByCategory'])->name('get-sub-cat-by-cat');
     Route::get('check-post-exists-or-not/{id}', [PostController::class, 'checkPostExistOrNot']);
+    Route::post('post-inactive/{post}', [PostController::class, 'postInactive'])->name('post.inactive');
+    Route::post('post-active/{post}', [PostController::class, 'postActive'])->name('post.active');
 
     Route::resource('tag', TagController::class);
     Route::resource('slider', SliderController::class);
     Route::resource('website', WebsiteController::class);
+
+    Route::resource('admin', AdminController::class);
+
+    Route::get('test', function () {
+        // Mail::to('default@mail.com')->send(new DemoMail);
+        // $subscribers = Subscriber::latest()->get('email');
+
+        // foreach ($subscribers as $subscriber) {
+
+        //     echo "$subscriber->email <br>";
+        //     // Mail::to($subscriber)->send(new SendNewPostToSubscriberMail($post));
+        // }
+
+        Admin::create([
+            'name' => 'user',
+            'email' => 'user@mail.com',
+            'password' => bcrypt('password'),
+            'role' => 'user'
+        ]);
+        Admin::create([
+            'name' => 'editor',
+            'email' => 'editor@mail.com',
+            'password' => bcrypt('password'),
+            'role' => 'editor'
+        ]);
+    });
 });
