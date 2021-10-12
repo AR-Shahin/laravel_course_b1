@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Actions\File;
-use App\Http\Controllers\Controller;
 use App\Models\Website;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class WebsiteController extends Controller
 {
@@ -60,7 +62,11 @@ class WebsiteController extends Controller
      */
     public function edit(Website $website)
     {
-        return view('Backend.website.edit', compact('website'));
+        if (Gate::allows('isAdmin') || Gate::allows('isEditor')) {
+            return view('Backend.website.edit', compact('website'));
+        } else {
+            abort(403, 'Unauthorized!');
+        }
     }
 
     /**

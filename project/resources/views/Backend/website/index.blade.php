@@ -7,7 +7,9 @@
     <div class="card-header ">
         <div class="d-flex justify-content-between">
         <h4 class="card-title">Manage Website</h4>
-            <a href="{{ route('admin.website.edit', $website->id) }}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Update Website Information</a>
+        @canany(['isAdmin','isEditor'])
+        <a href="{{ route('admin.website.edit', $website->id) }}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Update Website Information</a>
+        @endcan
         </div>
     </div>
     <div class="card-body">

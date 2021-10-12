@@ -13,7 +13,7 @@
           <img src="{{ asset('Backend') }}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{ auth()->user()->name }}</a>
         </div>
       </div>
 
@@ -64,12 +64,14 @@
               <p>Sub Category</p>
             </a>
           </li>
-        <li class="nav-item">
-          <a href="{{ route('admin.post.index') }}" class="nav-link">
-            <i class="nav-icon far fa-circle text-warning"></i>
-            <p>Post</p>
-          </a>
-        </li>
+          @can('isAdmin')
+          <li class="nav-item">
+            <a href="{{ route('admin.post.index') }}" class="nav-link">
+              <i class="nav-icon far fa-circle text-warning"></i>
+              <p>Post</p>
+            </a>
+          </li>
+          @endcan
         <li class="nav-item">
           <a href="{{ route('admin.tag.index') }}" class="nav-link">
             <i class="nav-icon far fa-circle text-warning"></i>
@@ -93,6 +95,12 @@
               <i class="nav-icon far fa-circle text-warning"></i>
               <p>Website</p>
             </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('admin.admin.index')}}" class="nav-link" target="_blank">
+                <i class="nav-icon far fa-circle text-warning"></i>
+                <p>Users</p>
+              </a>
           </li>
           @auth('web')
           <li class="nav-item">
