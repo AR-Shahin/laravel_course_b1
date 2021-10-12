@@ -64,7 +64,7 @@
               <p>Sub Category</p>
             </a>
           </li>
-          @can('isAdmin')
+          @canany(['isAdmin','isEditor'])
           <li class="nav-item">
             <a href="{{ route('admin.post.index') }}" class="nav-link">
               <i class="nav-icon far fa-circle text-warning"></i>

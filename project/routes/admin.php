@@ -33,7 +33,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('fetch-sub-category', [SubCategoryController::class, 'fetchSubCategory'])->name('fetch-sub-category');
     // Post
 
-    Route::resource('post', PostController::class)->middleware(['can:isAdmin']);
+    Route::resource('post', PostController::class);
     Route::get('get-sub-category-by-category/{id}', [PostController::class, 'getSubCategoryByCategory'])->name('get-sub-cat-by-cat');
     Route::get('check-post-exists-or-not/{id}', [PostController::class, 'checkPostExistOrNot']);
     Route::post('post-inactive/{post}', [PostController::class, 'postInactive'])->name('post.inactive');

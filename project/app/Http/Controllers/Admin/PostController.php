@@ -95,6 +95,7 @@ class PostController extends Controller
      */
     public function edit(post $post)
     {
+        $this->authorize('update', $post);
         $categories = Category::latest()->get();
         $tags = Tag::latest()->get();
         $postTags = $this->getIDByFunction($post->tags);

@@ -50,7 +50,9 @@
                             @endif
 
                             <a href="{{ route('admin.post.show',$post->slug) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                            @can('update', $post)
                             <a href="{{ route('admin.post.edit', $post->slug) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                            @endcan
 
                            <form action="{{ route('admin.post.destroy', $post->slug) }}" class="d-inline" method="POST">
                             @csrf
