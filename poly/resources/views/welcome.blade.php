@@ -7,8 +7,11 @@
     <title>Document</title>
 </head>
 <body>
+    {{ __('text.hi',['name' => 'Biplob']) }} <br><br>
+    {{ __('text.title') }} <br><br>
+    {{ __('text.dog') }}
 
-
-{!! $text !!}
+{{ __('text.name') }} <br><br>
+{{ __('text.title') }}
 </body>
 </html>
