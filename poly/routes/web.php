@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Admin;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,17 +36,30 @@ Route::get('/', function () {
     //     ]);
     // }
 
-    return Product::with('oldestComment')->find(1);
+    // return Product::with('oldestComment')->find(1);
 
 
-    return Comment::find(8)->subject->getTable();
-
-
-
+    // return Comment::find(8)->subject->getTable();
 
 
 
 
+    # post => admin_id
+    # post ->admin->info
 
-    return view('welcome');
+
+    # many to many polymorphic
+
+    // $post = Product::create([
+    //     'name' => 'Product 2'
+    // ]);
+
+    // $post->tags()->attach([1, 4]);
+    // return $post;
+
+    // $post = Product::with('tags:name')->find(1);
+    // return $post;
+
+    return Tag::with('products:name')->find(1);
+    return view('welcome', ['text' => '<h1>hello</h1>']);
 });

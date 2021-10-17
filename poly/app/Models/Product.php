@@ -23,4 +23,9 @@ class Product extends Model
     {
         return $this->morphOne(Comment::class, 'commentable')->oldestOfMany();
     }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable', 'tagebles');
+    }
 }

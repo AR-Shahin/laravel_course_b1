@@ -8,5 +8,7 @@
 </head>
 <body>
 
+
+{!! $text !!}
 </body>
 </html>
