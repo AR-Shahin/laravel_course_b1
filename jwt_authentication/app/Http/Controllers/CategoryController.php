@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\CategoryResources;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -23,10 +25,10 @@ class CategoryController extends Controller
         //     'data' => Category::get()
         // ]);
 
+        return new CategoryCollection(Category::paginate(2));
         return $this->responseOk(
             Category::get(),
         );
-
     }
 
     /**
@@ -61,7 +63,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return $this->responseOk($category,);
+        return new CategoryResources($category);
+        // return $this->responseOk($category,);
     }
 
     /**
